@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	
+	<!-- Google Font -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
+
+	<!-- d3-heatmap -->
+	<link href='d3-heatmap.css' rel='stylesheet' type='text/css'>
+
+	<style>
+		html { font-size: 62.5%; } 
+		body {
+		  	font-size: 1rem;
+		  	font-family: 'Open Sans', sans-serif;
+		  	font-weight: 400;
+		  	fill: #8C8C8C;
+		  	text-align: center;
+		}
+	</style>
+	
+</head>	
+<body>
+	<div id="trafficAccidents"></div>
+	<!-- D3.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+	
+	<!-- d3-heatmap -->
+	<script src="d3-heatmap.js"></script>
+
+	<script>
+		var h = d3.heatmap()
+		d3.json("accidents.json", function(error, accidents) {
+			if (error) return console.warn(error);
+			d3.select("#trafficAccidents")
+				.datum(accidents)
+          		.call(h);
+		});
+	</script>
+</body>
+</html>

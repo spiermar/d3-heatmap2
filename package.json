@@ -2,17 +2,27 @@
   "name": "d3-heatmap",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "keywords": [
+    "d3",
+    "d3-module"
+  ],
+  "main": "build/d3-heatmap.js",
+  "homepage": "https://github.com/spiermar/d3-heatmap",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "rm -rf build && mkdir build && rollup -f umd -n d3 -o build/d3-heatmap.js -- index.js",
+    "test": "tape 'test/**/*-test.js'",
+    "prepare": "npm run test && uglifyjs build/d3-heatmap.js -c -m -o build/d3-heatmap.min.js && cp src/heatmap.css build/d3-heatmap.css ",
+    "postpublish": "zip -j build/d3-heatmap.zip -- LICENSE README.md build/d3-heatmap.js build/d3-heatmap.min.js build/d3-heatmap.css"
   },
   "repository": {
     "type": "git",
-    "url": "http://git.martinspier.io/mspier/d3-heatmap.git"
+    "url": "https://github.com/spiermar/d3-heatmap"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "yargs": "^11.0.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "rollup": "0.27",
+    "tape": "4",
+    "uglify-js": "2"
   }
 }
