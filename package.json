@@ -9,9 +9,9 @@
   "main": "dist/d3-heatmap.js",
   "homepage": "https://github.com/spiermar/d3-heatmap",
   "scripts": {
-    "pretest": "rm -rf dist && mkdir dist && gulp rollup",
+    "pretest": "gulp build",
     "test": "tape 'test/**/*-test.js'",
-    "prepare": "npm run test && uglifyjs dist/d3-heatmap.js -c -m -o dist/d3-heatmap.min.js && cp src/heatmap.css dist/d3-heatmap.css ",
+    "prepare": "npm run test",
     "postpublish": "zip -j dist/d3-heatmap.zip -- LICENSE README.md dist/d3-heatmap.js dist/d3-heatmap.min.js dist/d3-heatmap.css"
   },
   "repository": {
@@ -21,7 +21,17 @@
   "author": "",
   "license": "Apache-2.0",
   "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "del": "^3.0.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
     "gulp": "^4.0.0",
+    "gulp-eslint": "^4.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
     "rollup-stream": "^1.24.1",
     "tape": "4",
     "uglify-js": "2",
