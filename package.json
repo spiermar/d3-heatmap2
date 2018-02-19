@@ -31,10 +31,13 @@
     "gulp": "^4.0.0",
     "gulp-eslint": "^4.0.2",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^3.0.0",
+    "gulp-uglify-es": "^1.0.1",
     "rollup-stream": "^1.24.1",
     "tape": "4",
-    "uglify-js": "2",
+    "uglify-es": "^3.3.9",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "yargs": "^11.0.0"
   }
 }

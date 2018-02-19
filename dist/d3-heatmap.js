@@ -1,46 +1,52 @@
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.d3 = global.d3 || {})));
+}(this, (function (exports) { 'use strict';
+
 /* global d3 */
 
-export default function () {
+var heatmap = function () {
   var margin = {
     top: 170,
     right: 50,
     bottom: 70,
     left: 50
-  }
+  };
 
   function heatmap (selection) {
-    var datum = selection.datum()
+    var datum = selection.datum();
 
-    var rows = datum.rows
-    var columns = datum.columns
-    var values = datum.values
+    var rows = datum.rows;
+    var columns = datum.columns;
+    var values = datum.values;
 
-    var max = 0
+    var max = 0;
 
     for (let i = 0; i < values.length; i++) {
       for (let j = 0; j < values[i].length; j++) {
-        if (values[i][j] > max) { max = values[i][j] }
+        if (values[i][j] > max) { max = values[i][j]; }
       }
     }
 
-    var title = 'Latency Heatmap'
-    var subtitle = 'github.com/spiermar/d3-heatmap'
-    var legendLabel = 'Count'
+    var title = 'Latency Heatmap';
+    var subtitle = 'github.com/spiermar/d3-heatmap';
+    var legendLabel = 'Count';
 
-    var width = Math.max(Math.min(window.innerWidth, 1440), 960) - margin.left - margin.right - 20
-    var gridSize = Math.floor(width / columns.length)
-    var height = gridSize * (rows.length + 2)
+    var width = Math.max(Math.min(window.innerWidth, 1440), 960) - margin.left - margin.right - 20;
+    var gridSize = Math.floor(width / columns.length);
+    var height = gridSize * (rows.length + 2);
 
     var svg = selection
       .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     var colorScale = d3.scale.linear()
       .domain([0, max / 2, max])
-      .range(['#FFFFDD', '#3E9583', '#1F2D86'])
+      .range(['#FFFFDD', '#3E9583', '#1F2D86']);
       // .interpolate(d3.interpolateHcl);
 
     svg.selectAll('.rowLabel')
@@ -51,7 +57,7 @@ export default function () {
       .attr('y', function (d, i) { return i * gridSize })
       .style('text-anchor', 'end')
       .attr('transform', 'translate(-6,' + gridSize / 1.5 + ')')
-      .attr('class', 'rowLabel mono axis')
+      .attr('class', 'rowLabel mono axis');
 
     svg.selectAll('.columnLabel')
       .data(columns)
@@ -61,7 +67,7 @@ export default function () {
       .attr('y', 0)
       .style('text-anchor', 'middle')
       .attr('transform', 'translate(' + gridSize / 2 + ', -6)')
-      .attr('class', 'columnLabel mono axis')
+      .attr('class', 'columnLabel mono axis');
 
     svg.selectAll('g')
       .data(values)
@@ -77,8 +83,8 @@ export default function () {
           .attr('height', gridSize)
           .style('stroke', 'white')
           .style('stroke-opacity', 0.6)
-          .style('fill', function (d) { return colorScale(d) })
-      })
+          .style('fill', function (d) { return colorScale(d) });
+      });
 
     // Append title to the top
     svg.append('text')
@@ -86,27 +92,27 @@ export default function () {
       .attr('x', width / 2)
       .attr('y', -90)
       .style('text-anchor', 'middle')
-      .text(title)
+      .text(title);
     svg.append('text')
       .attr('class', 'subtitle')
       .attr('x', width / 2)
       .attr('y', -60)
       .style('text-anchor', 'middle')
-      .text(subtitle)
+      .text(subtitle);
 
     // Extra scale since the color scale is interpolated
     var countScale = d3.scale.linear()
       .domain([0, max])
-      .range([0, width])
+      .range([0, width]);
 
     // Calculate the variables for the temp gradient
-    var numStops = 10
-    var countRange = countScale.domain()
-    var countPoint = []
+    var numStops = 10;
+    var countRange = countScale.domain();
+    var countPoint = [];
 
-    countRange[2] = countRange[1] - countRange[0]
+    countRange[2] = countRange[1] - countRange[0];
     for (var i = 0; i < numStops; i++) {
-      countPoint.push(i * countRange[2] / (numStops - 1) + countRange[0])
+      countPoint.push(i * countRange[2] / (numStops - 1) + countRange[0]);
     }// for i
 
     // Create the gradient
@@ -123,13 +129,13 @@ export default function () {
       })
       .attr('stop-color', function (d, i) {
         return colorScale(countPoint[i])
-      })
+      });
 
-    var legendWidth = Math.min(width * 0.8, 400)
+    var legendWidth = Math.min(width * 0.8, 400);
     // Color Legend container
     var legendsvg = svg.append('g')
       .attr('class', 'legendWrapper')
-      .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows.length + 40) + ')')
+      .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows.length + 40) + ')');
 
     // Draw the Rectangle
     legendsvg.append('rect')
@@ -139,7 +145,7 @@ export default function () {
     // .attr("rx", hexRadius*1.25/2)
       .attr('width', legendWidth)
       .attr('height', 10)
-      .style('fill', 'url(#legend-traffic)')
+      .style('fill', 'url(#legend-traffic)');
 
     // Append title
     legendsvg.append('text')
@@ -147,25 +153,31 @@ export default function () {
       .attr('x', 0)
       .attr('y', -10)
       .style('text-anchor', 'middle')
-      .text(legendLabel)
+      .text(legendLabel);
 
     // Set scale for x-axis
     var xScale = d3.scale.linear()
       .range([-legendWidth / 2, legendWidth / 2])
-      .domain([0, max])
+      .domain([0, max]);
 
     // Define x-axis
     var xAxis = d3.svg.axis()
       .orient('bottom')
       .ticks(5)
       // .tickFormat(formatPercent)
-      .scale(xScale)
+      .scale(xScale);
 
     // Set up X axis
     legendsvg.append('g')
       .attr('class', 'axis')
       .attr('transform', 'translate(0,' + (10) + ')')
-      .call(xAxis)
+      .call(xAxis);
   }
   return heatmap
 };
+
+exports.heatmap = heatmap;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
