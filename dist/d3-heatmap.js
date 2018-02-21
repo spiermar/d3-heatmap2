@@ -7,12 +7,17 @@
 /* global d3 */
 
 var heatmap = function () {
+  var title = '';
+  var subtitle = '';
+  var legendLabel = '';
+  var width = 960;
   var margin = {
-    top: 170,
-    right: 50,
-    bottom: 70,
+    top: 20,
+    right: -50,
+    bottom: 50,
     left: 50
   };
+  var colorScale = null;
 
   function heatmap (selection) {
     var datum = selection.datum();
@@ -21,21 +26,30 @@ var heatmap = function () {
     var columns = datum.columns;
     var values = datum.values;
 
-    var max = 0;
+    if (title) {
+      margin.top = margin.top + 50;
+    }
 
+    if (subtitle) {
+      margin.top = margin.top + 20;
+    }
+
+    var gridSize = Math.floor(width / columns.length);
+    var height = gridSize * (rows.length + 2);
+
+    var max = 0;
     for (let i = 0; i < values.length; i++) {
       for (let j = 0; j < values[i].length; j++) {
         if (values[i][j] > max) { max = values[i][j]; }
       }
     }
 
-    var title = 'Latency Heatmap';
-    var subtitle = 'github.com/spiermar/d3-heatmap';
-    var legendLabel = 'Count';
-
-    var width = Math.max(Math.min(window.innerWidth, 1440), 960) - margin.left - margin.right - 20;
-    var gridSize = Math.floor(width / columns.length);
-    var height = gridSize * (rows.length + 2);
+    if (!colorScale) {
+      colorScale = d3.scale.linear()
+        .domain([0, max / 2, max])
+        .range(['#FFFFDD', '#3E9583', '#1F2D86']);
+        // .interpolate(d3.interpolateHcl);
+    }
 
     var svg = selection
       .append('svg')
@@ -43,11 +57,6 @@ var heatmap = function () {
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-    var colorScale = d3.scale.linear()
-      .domain([0, max / 2, max])
-      .range(['#FFFFDD', '#3E9583', '#1F2D86']);
-      // .interpolate(d3.interpolateHcl);
 
     svg.selectAll('.rowLabel')
       .data(rows.reverse())
@@ -87,18 +96,23 @@ var heatmap = function () {
       });
 
     // Append title to the top
-    svg.append('text')
-      .attr('class', 'title')
-      .attr('x', width / 2)
-      .attr('y', -90)
-      .style('text-anchor', 'middle')
-      .text(title);
-    svg.append('text')
-      .attr('class', 'subtitle')
-      .attr('x', width / 2)
-      .attr('y', -60)
-      .style('text-anchor', 'middle')
-      .text(subtitle);
+    if (title) {
+      svg.append('text')
+        .attr('class', 'title')
+        .attr('x', width / 2)
+        .attr('y', -50)
+        .style('text-anchor', 'middle')
+        .text(title);
+    }
+
+    if (subtitle) {
+      svg.append('text')
+        .attr('class', 'subtitle')
+        .attr('x', width / 2)
+        .attr('y', -30)
+        .style('text-anchor', 'middle')
+        .text(subtitle);
+    }
 
     // Extra scale since the color scale is interpolated
     var countScale = d3.scale.linear()
@@ -142,7 +156,7 @@ var heatmap = function () {
       .attr('class', 'legendRect')
       .attr('x', -legendWidth / 2)
       .attr('y', 0)
-    // .attr("rx", hexRadius*1.25/2)
+      // .attr("rx", hexRadius*1.25/2)
       .attr('width', legendWidth)
       .attr('height', 10)
       .style('fill', 'url(#legend-traffic)');
@@ -173,6 +187,43 @@ var heatmap = function () {
       .attr('transform', 'translate(0,' + (10) + ')')
       .call(xAxis);
   }
+
+  heatmap.title = function (_) {
+    if (!arguments.length) { return title }
+    title = _;
+    return heatmap
+  };
+
+  heatmap.subtitle = function (_) {
+    if (!arguments.length) { return subtitle }
+    subtitle = _;
+    return heatmap
+  };
+
+  heatmap.legendLabel = function (_) {
+    if (!arguments.length) { return legendLabel }
+    legendLabel = _;
+    return heatmap
+  };
+
+  heatmap.width = function (_) {
+    if (!arguments.length) { return width }
+    width = _;
+    return heatmap
+  };
+
+  heatmap.margin = function (_) {
+    if (!arguments.length) { return margin }
+    margin = _;
+    return heatmap
+  };
+
+  heatmap.colorScale = function (_) {
+    if (!arguments.length) { return colorScale }
+    colorScale = _;
+    return heatmap
+  };
+
   return heatmap
 };
 
