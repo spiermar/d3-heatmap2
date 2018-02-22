@@ -7,7 +7,7 @@ export default function () {
   var width = 960
   var margin = {
     top: 20,
-    right: -50,
+    right: 0,
     bottom: 50,
     left: 50
   }
@@ -39,7 +39,7 @@ export default function () {
     }
 
     if (!colorScale) {
-      colorScale = d3.scale.linear()
+      colorScale = d3.scaleLinear()
         .domain([0, max / 2, max])
         .range(['#FFFFDD', '#3E9583', '#1F2D86'])
         // .interpolate(d3.interpolateHcl);
@@ -52,36 +52,56 @@ export default function () {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-    svg.selectAll('.rowLabel')
-      .data(rows.reverse())
-      .enter().append('text')
-      .text(function (d) { return d })
-      .attr('x', 0)
-      .attr('y', function (d, i) { return i * gridSize })
-      .style('text-anchor', 'end')
-      .attr('transform', 'translate(-6,' + gridSize / 1.5 + ')')
-      .attr('class', 'rowLabel mono axis')
+    // svg.selectAll('.rowLabel')
+    //   .data(rows.reverse())
+    //   .enter().append('text')
+    //   .text(function (d) { return d })
+    //   .attr('x', 0)
+    //   .attr('y', function (d, i) { return i * gridSize })
+    //   .style('text-anchor', 'end')
+    //   .attr('transform', 'translate(-6,' + gridSize / 1.5 + ')')
+    //   .attr('class', 'rowLabel mono axis')
 
-    svg.selectAll('.columnLabel')
-      .data(columns)
-      .enter().append('text')
-      .text(function (d) { return d })
-      .attr('x', function (d, i) { return i * gridSize })
-      .attr('y', 0)
-      .style('text-anchor', 'middle')
-      .attr('transform', 'translate(' + gridSize / 2 + ', -6)')
-      .attr('class', 'columnLabel mono axis')
+    // svg.selectAll('.columnLabel')
+    //   .data(columns)
+    //   .enter().append('text')
+    //   .text(function (d) { return d })
+    //   .attr('x', function (d, i) { return i * gridSize })
+    //   .attr('y', 0)
+    //   .style('text-anchor', 'middle')
+    //   .attr('transform', 'translate(' + gridSize / 2 + ', -6)')
+    //   .attr('class', 'columnLabel mono axis')
 
-    svg.selectAll('g')
+    var y = d3.scaleLinear()
+      .domain([106, 1999])
+      .range([height, 0])
+
+    var x = d3.scaleLinear()
+      .domain([0, 122])
+      .range([0, width - margin.left - margin.right - 40])
+
+    svg.append('g')
+      .attr('transform', 'translate(0,-12)')
+      .attr('class', 'rowLabel axis')
+      .call(d3.axisLeft(y)
+        .ticks(20, 's'))
+
+    svg.append('g')
+      .attr('transform', 'translate(5,0)')
+      .attr('class', 'columnLabel axis')
+      .call(d3.axisTop(x)
+        .ticks(20, 's'))
+
+    svg.selectAll('.column')
       .data(values)
       .enter().append('g')
       .each(function (d, i) { // function (d, i, j) might replace .each.
         d3.select(this).selectAll('rect')
           .data(d.reverse())
           .enter().append('rect')
-          .attr('x', function (d) { return i * gridSize }) // ROW
-          .attr('y', function (d, j) { return j * gridSize }) // COLUMN
-          .attr('class', 'hour bordered')
+          .attr('x', function (d) { return i * gridSize }) // column
+          .attr('y', function (d, j) { return j * gridSize }) // row
+          .attr('class', 'bordered')
           .attr('width', gridSize)
           .attr('height', gridSize)
           .style('stroke', 'white')
@@ -109,7 +129,7 @@ export default function () {
     }
 
     // Extra scale since the color scale is interpolated
-    var countScale = d3.scale.linear()
+    var countScale = d3.scaleLinear()
       .domain([0, max])
       .range([0, width])
 
@@ -164,13 +184,12 @@ export default function () {
       .text(legendLabel)
 
     // Set scale for x-axis
-    var xScale = d3.scale.linear()
+    var xScale = d3.scaleLinear()
       .range([-legendWidth / 2, legendWidth / 2])
       .domain([0, max])
 
     // Define x-axis
-    var xAxis = d3.svg.axis()
-      .orient('bottom')
+    var xAxis = d3.axisBottom()
       .ticks(5)
       // .tickFormat(formatPercent)
       .scale(xScale)
