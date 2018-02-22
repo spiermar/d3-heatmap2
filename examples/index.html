@@ -36,9 +36,11 @@
 			.subtitle("github.com/spiermar/d3-heatmap")
 			.legendLabel("Count")
 			.width(Math.max(Math.min(window.innerWidth, 1440), 960) - 20)
+			.xAxisScale([0,122])
+			.yAxisScale([106,1999])
 			.colorScale(d3.scaleLinear()
 				.domain([0, 65 / 2, 65])
-				.range(['#FFFFFF', '#ff5032', '#e50914'])
+				.range(['#F5F5DC', '#FF5032', '#E50914'])
 			);
 
 		d3.json("data.json", function(error, data) {

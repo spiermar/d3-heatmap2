@@ -12,6 +12,12 @@ export default function () {
     left: 50
   }
   var colorScale = null
+  var xAxisScale = null
+  var yAxisScale = null
+  var xAxisLabelFormat = function (d) { return d }
+  var yAxisLabelFormat = function (d) { return d }
+  var xAxisTickFormat = d3.format('.0f')
+  var yAxisTickFormat = d3.format('.2s')
 
   function heatmap (selection) {
     var datum = selection.datum()
@@ -52,47 +58,53 @@ export default function () {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-    // svg.selectAll('.rowLabel')
-    //   .data(rows.reverse())
-    //   .enter().append('text')
-    //   .text(function (d) { return d })
-    //   .attr('x', 0)
-    //   .attr('y', function (d, i) { return i * gridSize })
-    //   .style('text-anchor', 'end')
-    //   .attr('transform', 'translate(-6,' + gridSize / 1.5 + ')')
-    //   .attr('class', 'rowLabel mono axis')
+    if (!yAxisScale) {
+      svg.selectAll('.rowLabel')
+        .data(rows.reverse())
+        .enter().append('text')
+        .text(yAxisLabelFormat)
+        .attr('x', 0)
+        .attr('y', function (d, i) { return i * gridSize })
+        .style('text-anchor', 'end')
+        .attr('transform', 'translate(-6,' + gridSize / 1.1 + ')')
+        .attr('class', 'rowLabel mono axis')
+    } else {
+      var y = d3.scaleLinear()
+        .domain(yAxisScale)
+        .range([height, 0])
 
-    // svg.selectAll('.columnLabel')
-    //   .data(columns)
-    //   .enter().append('text')
-    //   .text(function (d) { return d })
-    //   .attr('x', function (d, i) { return i * gridSize })
-    //   .attr('y', 0)
-    //   .style('text-anchor', 'middle')
-    //   .attr('transform', 'translate(' + gridSize / 2 + ', -6)')
-    //   .attr('class', 'columnLabel mono axis')
+      svg.append('g')
+        .attr('transform', 'translate(3,-12)')
+        .attr('class', 'rowLabel axis')
+        .call(d3.axisLeft(y)
+          .ticks(20)
+          .tickFormat(yAxisTickFormat))
+    }
 
-    var y = d3.scaleLinear()
-      .domain([106, 1999])
-      .range([height, 0])
+    if (!xAxisScale) {
+      svg.selectAll('.columnLabel')
+        .data(columns)
+        .enter().append('text')
+        .text(xAxisLabelFormat)
+        .attr('y', function (d, i) { return i * gridSize })
+        .attr('x', 0)
+        .style('text-anchor', 'beginning')
+        .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
+        .attr('class', 'columnLabel mono axis')
+    } else {
+      var x = d3.scaleLinear()
+        .domain(xAxisScale)
+        .range([0, width - margin.left - margin.right - 40])
 
-    var x = d3.scaleLinear()
-      .domain([0, 122])
-      .range([0, width - margin.left - margin.right - 40])
+      svg.append('g')
+        .attr('transform', 'translate(5,3)')
+        .attr('class', 'columnLabel axis')
+        .call(d3.axisTop(x)
+          .ticks(20)
+          .tickFormat(xAxisTickFormat))
+    }
 
-    svg.append('g')
-      .attr('transform', 'translate(0,-12)')
-      .attr('class', 'rowLabel axis')
-      .call(d3.axisLeft(y)
-        .ticks(20, 's'))
-
-    svg.append('g')
-      .attr('transform', 'translate(5,0)')
-      .attr('class', 'columnLabel axis')
-      .call(d3.axisTop(x)
-        .ticks(20, 's'))
-
-    svg.selectAll('.column')
+    svg.selectAll('g.column')
       .data(values)
       .enter().append('g')
       .each(function (d, i) { // function (d, i, j) might replace .each.
@@ -114,7 +126,7 @@ export default function () {
       svg.append('text')
         .attr('class', 'title')
         .attr('x', width / 2)
-        .attr('y', -50)
+        .attr('y', -60)
         .style('text-anchor', 'middle')
         .text(title)
     }
@@ -123,7 +135,7 @@ export default function () {
       svg.append('text')
         .attr('class', 'subtitle')
         .attr('x', width / 2)
-        .attr('y', -30)
+        .attr('y', -40)
         .style('text-anchor', 'middle')
         .text(subtitle)
     }
@@ -234,6 +246,42 @@ export default function () {
   heatmap.colorScale = function (_) {
     if (!arguments.length) { return colorScale }
     colorScale = _
+    return heatmap
+  }
+
+  heatmap.xAxisScale = function (_) {
+    if (!arguments.length) { return xAxisScale }
+    xAxisScale = _
+    return heatmap
+  }
+
+  heatmap.yAxisScale = function (_) {
+    if (!arguments.length) { return yAxisScale }
+    yAxisScale = _
+    return heatmap
+  }
+
+  heatmap.xAxisLabelFormat = function (_) {
+    if (!arguments.length) { return xAxisLabelFormat }
+    xAxisLabelFormat = _
+    return heatmap
+  }
+
+  heatmap.yAxisLabelFormat = function (_) {
+    if (!arguments.length) { return yAxisLabelFormat }
+    yAxisLabelFormat = _
+    return heatmap
+  }
+
+  heatmap.xAxisTickFormat = function (_) {
+    if (!arguments.length) { return xAxisTickFormat }
+    xAxisTickFormat = _
+    return heatmap
+  }
+
+  heatmap.yAxisTickFormat = function (_) {
+    if (!arguments.length) { return yAxisTickFormat }
+    yAxisTickFormat = _
     return heatmap
   }
 

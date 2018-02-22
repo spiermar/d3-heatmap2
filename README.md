@@ -41,13 +41,73 @@ If called with no arguments, `margin` will return the heatmap margin object.
 
 <a name="colorScale" href="#colorScale">#</a> heatmap.<b>colorScale</b>(<i>[function]</i>)
 
-Replaces the built-in color scale function. Function takes no arguments, and returns a [d3.scale](https://github.com/d3/d3-scale) function. Example:
+Replaces the built-in color scale function. The scale function takes no arguments, and returns a [d3.scale](https://github.com/d3/d3-scale) function. Example:
 
 ```js
-heatmap.colorScale(d3.scale.linear()
+heatmap.colorScale(d3.scaleLinear()
     .domain([0, 65 / 2, 65])
     .range(['#FFFFFF', '#ff5032', '#e50914'])
 );
 ```
 
 If called with no arguments, `colorScale` will return the heatmap _colorScale_ function.
+
+<a name="xAxisScale" href="#xAxisScale">#</a> heatmap.<b>xAxisScale</b>(<i>[array]</i>)
+
+Heatmap xAxis scale domain, in a value scale array format. Defaults to `null` if not set, which displays the xAxis labels instead of the scale.
+
+```js
+heatmap.yAxisScale([0, 1000]);
+```
+
+If called with no arguments, `xAxisScale` will return the heatmap xAxis scale domain array.
+
+<a name="yAxisScale" href="#yAxisScale">#</a> heatmap.<b>yAxisScale</b>(<i>[array]</i>)
+
+Heatmap yAxis scale domain, in a value scale array format. Defaults to `null` if not set, which displays the yAxis labels instead of the scale.
+
+```js
+heatmap.yAxisScale([0, 100]);
+```
+
+If called with no arguments, `yAxisScale` will return the heatmap yAxis scale domain array.
+
+<a name="xAxisLabelFormat" href="#xAxisLabelFormat">#</a> heatmap.<b>xAxisLabelFormat</b>(<i>[function]</i>)
+
+Heatmap xAxis label formatter function. The label formatter function takes a single argument, the label array value, and returns a label string. Defaults to `function (d) { return d }` if not set, which displays the value in the xAxis labels array.
+
+```js
+heatmap.xAxisLabelFormat(function (d) { return d + ' sec' });
+```
+
+If called with no arguments, `xAxisLabelFormat` will return the heatmap xAxis label formatter function.
+
+<a name="yAxisLabelFormat" href="#yAxisLabelFormat">#</a> heatmap.<b>yAxisLabelFormat</b>(<i>[function]</i>)
+
+Heatmap yAxis label formatter function. The label formatter function takes a single argument, the label array value, and returns a label string. Defaults to `function (d) { return d }` if not set, which displays the value in the yAxis labels array.
+
+```js
+heatmap.yAxisLabelFormat(function (d) { return d + ' bucket' });
+```
+
+If called with no arguments, `yAxisLabelFormat` will return the heatmap yAxis label formatter function.
+
+<a name="xAxisTickFormat" href="#xAxisTickFormat">#</a> heatmap.<b>xAxisTickFormat</b>(<i>[function]</i>)
+
+Heatmap xAxis tick format function. The tick format function takes a single argument, the tick value, and returns a formatted tick. Defaults to `d3.format('.0f')` if not set.
+
+```js
+heatmap.xAxisTickFormat(d3.format('.0f'));
+```
+
+If called with no arguments, `xAxisTickFormat` will return the heatmap xAxis tick format function.
+
+<a name="yAxisTickFormat" href="#yAxisTickFormat">#</a> heatmap.<b>yAxisTickFormat</b>(<i>[function]</i>)
+
+Heatmap yAxis tick format function. The tick format function takes a single argument, the tick value, and returns a formatted tick. Defaults to `d3.format('.2s')` if not set.
+
+```js
+heatmap.yAxisTickFormat(d3.format('.2s'));
+```
+
+If called with no arguments, `yAxisTickFormat` will return the heatmap yAxis tick format function.
