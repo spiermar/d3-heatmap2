@@ -111,3 +111,15 @@ heatmap.yAxisTickFormat(d3.format('.2s'));
 ```
 
 If called with no arguments, `yAxisTickFormat` will return the heatmap yAxis tick format function.
+
+<a href="#xAxisHide" name="xAxisHide">#</a> heatmap.<b>xAxisHide</b>(<i>[bool]</i>)
+
+Hide xAxis label. Defaults to `false` if not set. If called with no arguments, `xAxisHide` will return the status of the xAxis label. 
+
+<a href="#yAxisHide" name="yAxisHide">#</a> heatmap.<b>yAxisHide</b>(<i>[bool]</i>)
+
+Hide yAxis label. Defaults to `false` if not set. If called with no arguments, `yAxisHide` will return the status of the yAxis label. 
+
+<a href="#legendHide" name="legendHide">#</a> heatmap.<b>legendHide</b>(<i>[bool]</i>)
+
+Hide heatmap legend. Defaults to `false` if not set. If called with no arguments, `legendHide` will return the status of the heatmap legend. 

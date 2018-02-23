@@ -12,10 +12,10 @@ var heatmap = function () {
   var legendLabel = '';
   var width = 960;
   var margin = {
-    top: 20,
+    top: 0,
     right: 0,
-    bottom: 50,
-    left: 50
+    bottom: 0,
+    left: 0
   };
   var colorScale = null;
   var xAxisScale = null;
@@ -24,6 +24,9 @@ var heatmap = function () {
   var yAxisLabelFormat = function (d) { return d };
   var xAxisTickFormat = d3.format('.0f');
   var yAxisTickFormat = d3.format('.2s');
+  var xAxisHide = false;
+  var yAxisHide = false;
+  var legendHide = false;
 
   function heatmap (selection) {
     var datum = selection.datum();
@@ -38,6 +41,18 @@ var heatmap = function () {
 
     if (subtitle) {
       margin.top = margin.top + 20;
+    }
+
+    if (!legendHide) {
+      margin.bottom = margin.bottom + 50;
+    }
+
+    if (!xAxisHide) {
+      margin.top = margin.top + 20;
+    }
+
+    if (!yAxisHide) {
+      margin.left = margin.left + 50;
     }
 
     var gridSize = Math.floor(width / columns.length);
@@ -64,50 +79,54 @@ var heatmap = function () {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    if (!yAxisScale) {
-      svg.selectAll('.rowLabel')
-        .data(rows.reverse())
-        .enter().append('text')
-        .text(yAxisLabelFormat)
-        .attr('x', 0)
-        .attr('y', function (d, i) { return i * gridSize })
-        .style('text-anchor', 'end')
-        .attr('transform', 'translate(-6,' + gridSize / 1.1 + ')')
-        .attr('class', 'rowLabel mono axis');
-    } else {
-      var y = d3.scaleLinear()
-        .domain(yAxisScale)
-        .range([height, 0]);
+    if (!yAxisHide) {
+      if (!yAxisScale) {
+        svg.selectAll('.rowLabel')
+          .data(rows.reverse())
+          .enter().append('text')
+          .text(yAxisLabelFormat)
+          .attr('x', 0)
+          .attr('y', function (d, i) { return i * gridSize })
+          .style('text-anchor', 'end')
+          .attr('transform', 'translate(-6,' + gridSize / 1.1 + ')')
+          .attr('class', 'rowLabel mono axis');
+      } else {
+        var y = d3.scaleLinear()
+          .domain(yAxisScale)
+          .range([height, 0]);
 
-      svg.append('g')
-        .attr('transform', 'translate(3,-12)')
-        .attr('class', 'rowLabel axis')
-        .call(d3.axisLeft(y)
-          .ticks(20)
-          .tickFormat(yAxisTickFormat));
+        svg.append('g')
+          .attr('transform', 'translate(3,-12)')
+          .attr('class', 'rowLabel axis')
+          .call(d3.axisLeft(y)
+            .ticks(20)
+            .tickFormat(yAxisTickFormat));
+      }
     }
 
-    if (!xAxisScale) {
-      svg.selectAll('.columnLabel')
-        .data(columns)
-        .enter().append('text')
-        .text(xAxisLabelFormat)
-        .attr('y', function (d, i) { return i * gridSize })
-        .attr('x', 0)
-        .style('text-anchor', 'beginning')
-        .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
-        .attr('class', 'columnLabel mono axis');
-    } else {
-      var x = d3.scaleLinear()
-        .domain(xAxisScale)
-        .range([0, width - margin.left - margin.right - 40]);
+    if (!xAxisHide) {
+      if (!xAxisScale) {
+        svg.selectAll('.columnLabel')
+          .data(columns)
+          .enter().append('text')
+          .text(xAxisLabelFormat)
+          .attr('y', function (d, i) { return i * gridSize })
+          .attr('x', 0)
+          .style('text-anchor', 'beginning')
+          .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
+          .attr('class', 'columnLabel mono axis');
+      } else {
+        var x = d3.scaleLinear()
+          .domain(xAxisScale)
+          .range([0, width - margin.left - margin.right - 40]);
 
-      svg.append('g')
-        .attr('transform', 'translate(5,3)')
-        .attr('class', 'columnLabel axis')
-        .call(d3.axisTop(x)
-          .ticks(20)
-          .tickFormat(xAxisTickFormat));
+        svg.append('g')
+          .attr('transform', 'translate(5,3)')
+          .attr('class', 'columnLabel axis')
+          .call(d3.axisTop(x)
+            .ticks(20)
+            .tickFormat(xAxisTickFormat));
+      }
     }
 
     svg.selectAll('g.column')
@@ -146,77 +165,79 @@ var heatmap = function () {
         .text(subtitle);
     }
 
-    // Extra scale since the color scale is interpolated
-    var countScale = d3.scaleLinear()
-      .domain([0, max])
-      .range([0, width]);
+    if (!legendHide) {
+      // Extra scale since the color scale is interpolated
+      var countScale = d3.scaleLinear()
+        .domain([0, max])
+        .range([0, width]);
 
-    // Calculate the variables for the temp gradient
-    var numStops = 10;
-    var countRange = countScale.domain();
-    var countPoint = [];
+      // Calculate the variables for the temp gradient
+      var numStops = 10;
+      var countRange = countScale.domain();
+      var countPoint = [];
 
-    countRange[2] = countRange[1] - countRange[0];
-    for (var i = 0; i < numStops; i++) {
-      countPoint.push(i * countRange[2] / (numStops - 1) + countRange[0]);
-    }// for i
+      countRange[2] = countRange[1] - countRange[0];
+      for (var i = 0; i < numStops; i++) {
+        countPoint.push(i * countRange[2] / (numStops - 1) + countRange[0]);
+      }// for i
 
-    // Create the gradient
-    svg.append('defs')
-      .append('linearGradient')
-      .attr('id', 'legend-traffic')
-      .attr('x1', '0%').attr('y1', '0%')
-      .attr('x2', '100%').attr('y2', '0%')
-      .selectAll('stop')
-      .data(d3.range(numStops))
-      .enter().append('stop')
-      .attr('offset', function (d, i) {
-        return countScale(countPoint[i]) / width
-      })
-      .attr('stop-color', function (d, i) {
-        return colorScale(countPoint[i])
-      });
+      // Create the gradient
+      svg.append('defs')
+        .append('linearGradient')
+        .attr('id', 'legend-traffic')
+        .attr('x1', '0%').attr('y1', '0%')
+        .attr('x2', '100%').attr('y2', '0%')
+        .selectAll('stop')
+        .data(d3.range(numStops))
+        .enter().append('stop')
+        .attr('offset', function (d, i) {
+          return countScale(countPoint[i]) / width
+        })
+        .attr('stop-color', function (d, i) {
+          return colorScale(countPoint[i])
+        });
 
-    var legendWidth = Math.min(width * 0.8, 400);
-    // Color Legend container
-    var legendsvg = svg.append('g')
-      .attr('class', 'legendWrapper')
-      .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows.length + 40) + ')');
+      var legendWidth = Math.min(width * 0.8, 400);
+      // Color Legend container
+      var legendsvg = svg.append('g')
+        .attr('class', 'legendWrapper')
+        .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows.length + 40) + ')');
 
-    // Draw the Rectangle
-    legendsvg.append('rect')
-      .attr('class', 'legendRect')
-      .attr('x', -legendWidth / 2)
-      .attr('y', 0)
-      // .attr("rx", hexRadius*1.25/2)
-      .attr('width', legendWidth)
-      .attr('height', 10)
-      .style('fill', 'url(#legend-traffic)');
+      // Draw the Rectangle
+      legendsvg.append('rect')
+        .attr('class', 'legendRect')
+        .attr('x', -legendWidth / 2)
+        .attr('y', 0)
+        // .attr("rx", hexRadius*1.25/2)
+        .attr('width', legendWidth)
+        .attr('height', 10)
+        .style('fill', 'url(#legend-traffic)');
 
-    // Append title
-    legendsvg.append('text')
-      .attr('class', 'legendTitle')
-      .attr('x', 0)
-      .attr('y', -10)
-      .style('text-anchor', 'middle')
-      .text(legendLabel);
+      // Append title
+      legendsvg.append('text')
+        .attr('class', 'legendTitle')
+        .attr('x', 0)
+        .attr('y', -10)
+        .style('text-anchor', 'middle')
+        .text(legendLabel);
 
-    // Set scale for x-axis
-    var xScale = d3.scaleLinear()
-      .range([-legendWidth / 2, legendWidth / 2])
-      .domain([0, max]);
+      // Set scale for x-axis
+      var xScale = d3.scaleLinear()
+        .range([-legendWidth / 2, legendWidth / 2])
+        .domain([0, max]);
 
-    // Define x-axis
-    var xAxis = d3.axisBottom()
-      .ticks(5)
-      // .tickFormat(formatPercent)
-      .scale(xScale);
+      // Define x-axis
+      var xAxis = d3.axisBottom()
+        .ticks(5)
+        // .tickFormat(formatPercent)
+        .scale(xScale);
 
-    // Set up X axis
-    legendsvg.append('g')
-      .attr('class', 'axis')
-      .attr('transform', 'translate(0,' + (10) + ')')
-      .call(xAxis);
+      // Set up X axis
+      legendsvg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(0,' + (10) + ')')
+        .call(xAxis);
+    }
   }
 
   heatmap.title = function (_) {
@@ -288,6 +309,24 @@ var heatmap = function () {
   heatmap.yAxisTickFormat = function (_) {
     if (!arguments.length) { return yAxisTickFormat }
     yAxisTickFormat = _;
+    return heatmap
+  };
+
+  heatmap.xAxisHide = function (_) {
+    if (!arguments.length) { return xAxisHide }
+    xAxisHide = _;
+    return heatmap
+  };
+
+  heatmap.yAxisHide = function (_) {
+    if (!arguments.length) { return yAxisHide }
+    yAxisHide = _;
+    return heatmap
+  };
+
+  heatmap.legendHide = function (_) {
+    if (!arguments.length) { return legendHide }
+    legendHide = _;
     return heatmap
   };
 
