@@ -13,7 +13,7 @@ const OUTFILE = './examples/data.json'
 function summarizeBucket (data) {
   var buckets = new Array(data.length)
   for (let i = 0; i < data.length; i++) {
-    buckets[i] = data[i].length
+    buckets[data.length - 1 - i] = data[i].length
   }
   return buckets
 }
@@ -67,7 +67,7 @@ function convertTrace (filename) {
     var increment = (max - min) / ROWS
 
     var rows = []
-    for (let i = 0; i < ROWS; i++) {
+    for (let i = ROWS - 1; i >= 0; i--) {
       rows.push(((i * increment) + min) | 0)
     }
 

@@ -41,11 +41,11 @@
 		d3.json("data.json", function(error, data) {
 			if (error) return console.warn(error)
 			function onClick(d, i, j) {
-				console.info("Clicked on range " + data.rows[data.rows.length - 1 - j] + ", time " + data.columns[i] + ", count " + d)
+				console.info("Clicked on range " + data.rows[j] + ", time " + data.columns[i] + ", count " + d)
 			}
 
 			function onMouseOver(d, i, j) {
-				document.getElementById("details").innerHTML = "time: " + data.columns[i] + ", range: " + data.rows[data.rows.length - 1 - j] + ", count: " + d
+				document.getElementById("details").innerHTML = "time: " + data.columns[i] + ", range: " + data.rows[j] + ", count: " + d
 			}
 		
 			var h = d3.heatmap()

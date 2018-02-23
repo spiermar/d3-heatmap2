@@ -100,7 +100,7 @@ export default function () {
             .tickFormat(yAxisTickFormat))
       } else {
         svg.selectAll('.rowLabel')
-          .data(yAxisLabels.reverse())
+          .data(yAxisLabels)
           .enter().append('text')
           .text(yAxisLabelFormat)
           .attr('x', 0)
@@ -141,7 +141,7 @@ export default function () {
       .enter().append('g')
       .each(function (d, i) { // function (d, i, j) might replace .each.
         d3.select(this).selectAll('rect')
-          .data(d.reverse())
+          .data(d)
           .enter().append('rect')
           .attr('x', function (d) { return i * gridSize }) // column
           .attr('y', function (d, j) { return j * gridSize }) // row
