@@ -1,22 +1,22 @@
 {
-  "name": "d3-heatmap",
+  "name": "d3-heatmap2",
   "version": "0.1.0",
   "description": "",
   "keywords": [
     "d3",
     "d3-module"
   ],
-  "main": "dist/d3-heatmap.js",
-  "homepage": "https://github.com/spiermar/d3-heatmap",
+  "main": "dist/d3-heatmap2.js",
+  "homepage": "https://github.com/spiermar/d3-heatmap2",
   "scripts": {
     "pretest": "gulp build",
     "test": "tape 'test/**/*-test.js'",
     "prepare": "npm run test",
-    "postpublish": "zip -j dist/d3-heatmap.zip -- LICENSE README.md dist/d3-heatmap.js dist/d3-heatmap.min.js dist/d3-heatmap.css"
+    "postpublish": "zip -j dist/d3-heatmap2.zip -- LICENSE README.md dist/d3-heatmap2.js dist/d3-heatmap2.min.js dist/d3-heatmap2.css"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spiermar/d3-heatmap"
+    "url": "https://github.com/spiermar/d3-heatmap2"
   },
   "author": "",
   "license": "Apache-2.0",

@@ -26,12 +26,12 @@ gulp.task('rollup', function () {
     extend: true,
     sourcemap: false
   })
-    .pipe(source('d3-heatmap.js'))
+    .pipe(source('d3-heatmap2.js'))
     .pipe(gulp.dest('./dist'))
 })
 
 gulp.task('uglify', function () {
-  return gulp.src('./dist/d3-heatmap.js')
+  return gulp.src('./dist/d3-heatmap2.js')
     .pipe(gulp.dest('./dist'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
@@ -40,7 +40,7 @@ gulp.task('uglify', function () {
 
 gulp.task('style', function () {
   return gulp.src('./src/heatmap.css')
-    .pipe(rename('d3-heatmap.css'))
+    .pipe(rename('d3-heatmap2.css'))
     .pipe(gulp.dest('./dist'))
 })
 

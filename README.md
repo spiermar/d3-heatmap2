@@ -1,10 +1,57 @@
-# d3-heatmap
+# d3-heatmap2
 
 A D3.js plugin that produces heatmaps.
 
+[![Heatmap](heatmap.png)](https://github.com/spiermar/d3-heatmap2/)
+
+## Example
+
+Click [here](http://bl.ocks.org/spiermar/raw/76dc64a7716205df91e51b485a2445e8/) to check the demo, and [source](https://gist.github.com/spiermar/76dc64a7716205df91e51b485a2445e8).
+
 ## Installing
 
-If you use NPM, `npm install d3-heatmap`. Otherwise, download the [latest release](https://github.com/spiermar/d3-heatmap/releases/latest).
+If you use NPM, `npm install d3-heatmap2`. Otherwise, download the [latest release](https://github.com/spiermar/d3-heatmap2/releases/latest).
+
+## Getting Started
+
+```html
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/spiermar/d3-heatmap2@0.1/dist/d3-heatmap2.css">
+</head>
+<body>
+  <div id="chart"></div>
+  <div id="details"></div>
+  <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/gh/spiermar/d3-heatmap2@0.1/dist/d3-heatmap2.js"></script>
+  <script>
+    d3.json("data.json", function(error, data) {
+        if (error) return console.warn(error)    
+        var h = d3.heatmap()
+            .width(960)
+            .xAxisScale([0,120])
+            .yAxisScale([0,2000])
+            .colorScale(d3.scaleLinear()
+                .domain([0, 65 / 2, 65])
+                .range(['#F5F5DC', '#FF5032', '#E50914'])
+            )
+            
+        d3.select("#chart")
+            .datum(data)
+            .call(h)
+    })
+  </script>
+</body>
+```
+
+## Heatmap Data Structure
+
+```json
+[
+    [1,0,0],
+    [0,1,0],
+    [0,0,1]
+]
+```
 
 ## API Reference
 
@@ -159,3 +206,7 @@ heatmap.yAxisLabels([0, 1, 2, ...]);
 ```
 
 If called with no arguments, `yAxisLabels` will return the heatmap yAxis labels array.
+
+## Acknowledgements
+
+Thank you [Nadieh Bremer](https://twitter.com/NadiehBremer) for the visual inspiration and [D3.js examples](https://www.visualcinnamon.com/2016/05/smooth-color-legend-d3-svg-gradient.html).

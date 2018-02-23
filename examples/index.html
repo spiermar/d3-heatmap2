@@ -2,13 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>d3-heatmap</title>
+	<title>d3-heatmap2</title>
 	
 	<!-- Google Font -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400' rel='stylesheet' type='text/css'>
 
-	<!-- d3-heatmap -->
-	<link href='d3-heatmap.css' rel='stylesheet' type='text/css'>
+	<!-- d3-heatmap2 -->
+	<link href='d3-heatmap2.css' rel='stylesheet' type='text/css'>
 
 	<style>
 		html { font-size: 62.5%; } 
@@ -34,8 +34,8 @@
 	<!-- D3.js -->
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	
-	<!-- d3-heatmap -->
-	<script src="d3-heatmap.js"></script>
+	<!-- d3-heatmap2 -->
+	<script src="d3-heatmap2.js"></script>
 
 	<script>
 		d3.json("data.json", function(error, data) {
@@ -50,7 +50,7 @@
 		
 			var h = d3.heatmap()
 				.title("Latency Heatmap")
-				.subtitle("github.com/spiermar/d3-heatmap")
+				.subtitle("github.com/spiermar/d3-heatmap2")
 				.legendLabel("Count")
 				.width(Math.max(Math.min(window.innerWidth, 1440), 960) - 20)
 				.xAxisScale([0,122])
