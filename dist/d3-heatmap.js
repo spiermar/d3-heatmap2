@@ -92,7 +92,7 @@ var heatmap = function () {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    if (yAxisScale || xAxisLabels) {
+    if (yAxisScale || yAxisLabels) {
       if (yAxisScale) {
         var y = d3.scaleLinear()
           .domain(yAxisScale)
