@@ -19,11 +19,18 @@
 		  	fill: #8C8C8C;
 		  	text-align: center;
 		}
+		.details {
+			margin-top: 30px;
+			font-family: 'Open Sans', sans-serif;
+			font-size: 1.4rem;
+			color: #8C8C8C;
+		}
 	</style>
 	
 </head>	
 <body>
 	<div id="chart"></div>
+	<div id="details" class="details"></div>
 	<!-- D3.js -->
 	<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	
@@ -31,32 +38,37 @@
 	<script src="d3-heatmap.js"></script>
 
 	<script>
-		function onClick(d, i, j) {
-			console.info("Clicked on row " + j + ", column " + i + ", value " + d);
-		}
-	
-		var h = d3.heatmap()
-			.title("Latency Heatmap")
-			.subtitle("github.com/spiermar/d3-heatmap")
-			.legendLabel("Count")
-			.width(Math.max(Math.min(window.innerWidth, 1440), 960) - 20)
-			.xAxisScale([0,122])
-			.yAxisScale([106,1999])
-			.xAxisHide(false)
-			.yAxisHide(false)
-			.legendHide(false)
-			.onClick(onClick)
-			.colorScale(d3.scaleLinear()
-				.domain([0, 65 / 2, 65])
-				.range(['#F5F5DC', '#FF5032', '#E50914'])
-			);
-
 		d3.json("data.json", function(error, data) {
-			if (error) return console.warn(error);
+			if (error) return console.warn(error)
+			function onClick(d, i, j) {
+				console.info("Clicked on range " + data.rows[data.rows.length - 1 - j] + ", time " + data.columns[i] + ", count " + d)
+			}
+
+			function onMouseOver(d, i, j) {
+				document.getElementById("details").innerHTML = "time: " + data.columns[i] + ", range: " + data.rows[data.rows.length - 1 - j] + ", count: " + d
+			}
+		
+			var h = d3.heatmap()
+				.title("Latency Heatmap")
+				.subtitle("github.com/spiermar/d3-heatmap")
+				.legendLabel("Count")
+				.width(Math.max(Math.min(window.innerWidth, 1440), 960) - 20)
+				.xAxisScale([0,122])
+				.yAxisScale([106,1999])
+				.xAxisHide(false)
+				.yAxisHide(false)
+				.legendHide(false)
+				.onClick(onClick)
+				.onMouseOver(onMouseOver)
+				.colorScale(d3.scaleLinear()
+					.domain([0, 65 / 2, 65])
+					.range(['#F5F5DC', '#FF5032', '#E50914'])
+				)
+				
 			d3.select("#chart")
 				.datum(data)
-          		.call(h);
-		});
+				.call(h)
+		})
 	</script>
 </body>
 </html>

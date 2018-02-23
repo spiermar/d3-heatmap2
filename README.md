@@ -134,4 +134,16 @@ heatmap.onClick(function (d, i, j) {
 });
 ```
 
-If called with no arguments, `onClick` will return the click handler. 
+If called with no arguments, `onClick` will return the click handler.
+
+<a name="onMouseOver" href="#onMouseOver">#</a> heatmap.<b>onMouseOver</b>(<i>[function]</i>)
+
+Defines a function that will be executed when the user hovers the mouse over a frame. Function takes 3 arguments, the value, the column index and row index respectively.
+
+```js
+heatmap.onMouseOver(function (d, i, j) {
+    document.getElementById("details").innerHTML = "column: " + i + ", row: " +  j + ", value: " + d
+});
+```
+
+If called with no arguments, `onMouseOver` will return the click handler. 

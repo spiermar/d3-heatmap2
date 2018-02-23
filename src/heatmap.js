@@ -22,10 +22,17 @@ export default function () {
   var yAxisHide = false
   var legendHide = false
   var clickHandler = null
+  var mouseOverHandler = null
 
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
       clickHandler(d, i, j)
+    }
+  }
+
+  function mouseOver (d, i, j) {
+    if (typeof mouseOverHandler === 'function') {
+      mouseOverHandler(d, i, j)
     }
   }
 
@@ -145,6 +152,7 @@ export default function () {
           .style('stroke', 'white')
           .style('stroke-opacity', 0.6)
           .style('fill', function (d) { return colorScale(d) })
+          .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
           .on('click', function (d, j) { return click(d, i, j) })
       })
 
@@ -338,5 +346,11 @@ export default function () {
     return heatmap
   }
 
+  heatmap.onMouseOver = function (_) {
+    if (!arguments.length) { return mouseOverHandler }
+    mouseOverHandler = _
+    return heatmap
+  }
+
   return heatmap
-};
+}
