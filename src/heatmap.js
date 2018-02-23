@@ -6,21 +6,25 @@ export default function () {
   var legendLabel = ''
   var width = 960
   var margin = {
-    top: 0,
+    top: 20,
     right: 0,
     bottom: 0,
     left: 0
   }
   var colorScale = null
+
   var xAxisScale = null
   var yAxisScale = null
-  var xAxisLabelFormat = function (d) { return d }
-  var yAxisLabelFormat = function (d) { return d }
   var xAxisTickFormat = d3.format('.0f')
   var yAxisTickFormat = d3.format('.2s')
-  var xAxisHide = false
-  var yAxisHide = false
-  var legendHide = false
+
+  var xAxisLabels = null
+  var yAxisLabels = null
+  var xAxisLabelFormat = function (d) { return d }
+  var yAxisLabelFormat = function (d) { return d }
+
+  var hideLegend = false
+
   var clickHandler = null
   var mouseOverHandler = null
 
@@ -37,11 +41,10 @@ export default function () {
   }
 
   function heatmap (selection) {
-    var datum = selection.datum()
+    var data = selection.datum()
 
-    var rows = datum.rows
-    var columns = datum.columns
-    var values = datum.values
+    var columns = data.length
+    var rows = data[0].length
 
     if (title) {
       margin.top = margin.top + 50
@@ -51,25 +54,21 @@ export default function () {
       margin.top = margin.top + 20
     }
 
-    if (!legendHide) {
+    if (!hideLegend) {
       margin.bottom = margin.bottom + 50
     }
 
-    if (!xAxisHide) {
-      margin.top = margin.top + 20
-    }
-
-    if (!yAxisHide) {
+    if (yAxisScale || yAxisLabels) {
       margin.left = margin.left + 50
     }
 
-    var gridSize = Math.floor(width / columns.length)
-    var height = gridSize * (rows.length + 2)
+    var gridSize = Math.floor(width / columns)
+    var height = gridSize * (rows + 2)
 
     var max = 0
-    for (let i = 0; i < values.length; i++) {
-      for (let j = 0; j < values[i].length; j++) {
-        if (values[i][j] > max) { max = values[i][j] }
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+        if (data[i][j] > max) { max = data[i][j] }
       }
     }
 
@@ -87,18 +86,8 @@ export default function () {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
-    if (!yAxisHide) {
-      if (!yAxisScale) {
-        svg.selectAll('.rowLabel')
-          .data(rows.reverse())
-          .enter().append('text')
-          .text(yAxisLabelFormat)
-          .attr('x', 0)
-          .attr('y', function (d, i) { return i * gridSize })
-          .style('text-anchor', 'end')
-          .attr('transform', 'translate(-6,' + gridSize / 1.1 + ')')
-          .attr('class', 'rowLabel mono axis')
-      } else {
+    if (yAxisScale || xAxisLabels) {
+      if (yAxisScale) {
         var y = d3.scaleLinear()
           .domain(yAxisScale)
           .range([height, 0])
@@ -109,21 +98,21 @@ export default function () {
           .call(d3.axisLeft(y)
             .ticks(20)
             .tickFormat(yAxisTickFormat))
+      } else {
+        svg.selectAll('.rowLabel')
+          .data(yAxisLabels.reverse())
+          .enter().append('text')
+          .text(yAxisLabelFormat)
+          .attr('x', 0)
+          .attr('y', function (d, i) { return i * gridSize })
+          .style('text-anchor', 'end')
+          .attr('transform', 'translate(-6,' + gridSize / 1.2 + ')')
+          .attr('class', 'rowLabel mono axis')
       }
     }
 
-    if (!xAxisHide) {
-      if (!xAxisScale) {
-        svg.selectAll('.columnLabel')
-          .data(columns)
-          .enter().append('text')
-          .text(xAxisLabelFormat)
-          .attr('y', function (d, i) { return i * gridSize })
-          .attr('x', 0)
-          .style('text-anchor', 'beginning')
-          .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
-          .attr('class', 'columnLabel mono axis')
-      } else {
+    if (xAxisScale || xAxisLabels) {
+      if (xAxisScale) {
         var x = d3.scaleLinear()
           .domain(xAxisScale)
           .range([0, width - margin.left - margin.right - 40])
@@ -134,11 +123,21 @@ export default function () {
           .call(d3.axisTop(x)
             .ticks(20)
             .tickFormat(xAxisTickFormat))
+      } else {
+        svg.selectAll('.columnLabel')
+          .data(xAxisLabels)
+          .enter().append('text')
+          .text(xAxisLabelFormat)
+          .attr('y', function (d, i) { return i * gridSize })
+          .attr('x', 0)
+          .style('text-anchor', 'beginning')
+          .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
+          .attr('class', 'columnLabel mono axis')
       }
     }
 
     svg.selectAll('g.column')
-      .data(values)
+      .data(data)
       .enter().append('g')
       .each(function (d, i) { // function (d, i, j) might replace .each.
         d3.select(this).selectAll('rect')
@@ -175,7 +174,7 @@ export default function () {
         .text(subtitle)
     }
 
-    if (!legendHide) {
+    if (!hideLegend) {
       // Extra scale since the color scale is interpolated
       var countScale = d3.scaleLinear()
         .domain([0, max])
@@ -211,7 +210,7 @@ export default function () {
       // Color Legend container
       var legendsvg = svg.append('g')
         .attr('class', 'legendWrapper')
-        .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows.length + 40) + ')')
+        .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows + 40) + ')')
 
       // Draw the Rectangle
       legendsvg.append('rect')
@@ -322,21 +321,9 @@ export default function () {
     return heatmap
   }
 
-  heatmap.xAxisHide = function (_) {
-    if (!arguments.length) { return xAxisHide }
-    xAxisHide = _
-    return heatmap
-  }
-
-  heatmap.yAxisHide = function (_) {
-    if (!arguments.length) { return yAxisHide }
-    yAxisHide = _
-    return heatmap
-  }
-
-  heatmap.legendHide = function (_) {
-    if (!arguments.length) { return legendHide }
-    legendHide = _
+  heatmap.hideLegend = function (_) {
+    if (!arguments.length) { return hideLegend }
+    hideLegend = _
     return heatmap
   }
 
@@ -349,6 +336,18 @@ export default function () {
   heatmap.onMouseOver = function (_) {
     if (!arguments.length) { return mouseOverHandler }
     mouseOverHandler = _
+    return heatmap
+  }
+
+  heatmap.xAxisLabels = function (_) {
+    if (!arguments.length) { return xAxisLabels }
+    xAxisLabels = _
+    return heatmap
+  }
+
+  heatmap.yAxisLabels = function (_) {
+    if (!arguments.length) { return yAxisLabels }
+    yAxisLabels = _
     return heatmap
   }
 

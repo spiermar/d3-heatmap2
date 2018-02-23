@@ -55,9 +55,8 @@
 				.width(Math.max(Math.min(window.innerWidth, 1440), 960) - 20)
 				.xAxisScale([0,122])
 				.yAxisScale([106,1999])
-				.xAxisHide(false)
-				.yAxisHide(false)
-				.legendHide(false)
+				// .xAxisLabels(data.columns)
+				// .yAxisLabels(data.rows)
 				.onClick(onClick)
 				.onMouseOver(onMouseOver)
 				.colorScale(d3.scaleLinear()
@@ -66,7 +65,7 @@
 				)
 				
 			d3.select("#chart")
-				.datum(data)
+				.datum(data.values)
 				.call(h)
 		})
 	</script>

@@ -31,9 +31,9 @@ Heatmap title. Defaults to the values below if not set.
 ```js
 {
     top: 20,
-    right: -50,
-    bottom: 50,
-    left: 50
+    right: 0,
+    bottom: 0,
+    left: 0
 }
 ```
 
@@ -57,7 +57,7 @@ If called with no arguments, `colorScale` will return the heatmap _colorScale_ f
 Heatmap xAxis scale domain, in a value scale array format. Defaults to `null` if not set, which displays the xAxis labels instead of the scale.
 
 ```js
-heatmap.yAxisScale([0, 1000]);
+heatmap.xAxisScale([0, 1000]);
 ```
 
 If called with no arguments, `xAxisScale` will return the heatmap xAxis scale domain array.
@@ -112,17 +112,9 @@ heatmap.yAxisTickFormat(d3.format('.2s'));
 
 If called with no arguments, `yAxisTickFormat` will return the heatmap yAxis tick format function.
 
-<a href="#xAxisHide" name="xAxisHide">#</a> heatmap.<b>xAxisHide</b>(<i>[bool]</i>)
+<a href="#hideLegend" name="hideLegend">#</a> heatmap.<b>hideLegend</b>(<i>[bool]</i>)
 
-Hide xAxis label. Defaults to `false` if not set. If called with no arguments, `xAxisHide` will return the status of the xAxis label. 
-
-<a href="#yAxisHide" name="yAxisHide">#</a> heatmap.<b>yAxisHide</b>(<i>[bool]</i>)
-
-Hide yAxis label. Defaults to `false` if not set. If called with no arguments, `yAxisHide` will return the status of the yAxis label. 
-
-<a href="#legendHide" name="legendHide">#</a> heatmap.<b>legendHide</b>(<i>[bool]</i>)
-
-Hide heatmap legend. Defaults to `false` if not set. If called with no arguments, `legendHide` will return the status of the heatmap legend.
+Hide heatmap legend. Defaults to `false` if not set. If called with no arguments, `hideLegend` will return the status of the heatmap legend.
 
 <a name="onClick" href="#onClick">#</a> heatmap.<b>onClick</b>(<i>[function]</i>)
 
@@ -146,4 +138,24 @@ heatmap.onMouseOver(function (d, i, j) {
 });
 ```
 
-If called with no arguments, `onMouseOver` will return the click handler. 
+If called with no arguments, `onMouseOver` will return the click handler.
+
+<a name="xAxisLabels" href="#xAxisLabels">#</a> heatmap.<b>xAxisLabels</b>(<i>[array]</i>)
+
+Heatmap xAxis labels array. Defaults to `null` if not set, which hides de xAxis label.
+
+```js
+heatmap.xAxisLabels([0, 1, 2, ...]);
+```
+
+If called with no arguments, `xAxisLabels` will return the heatmap xAxis labels array.
+
+<a name="yAxisLabels" href="#yAxisLabels">#</a> heatmap.<b>yAxisLabels</b>(<i>[array]</i>)
+
+Heatmap yAxis labels array. Defaults to `null` if not set, which hides de yAxis label.
+
+```js
+heatmap.yAxisLabels([0, 1, 2, ...]);
+```
+
+If called with no arguments, `yAxisLabels` will return the heatmap yAxis labels array.
