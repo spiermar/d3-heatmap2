@@ -27,6 +27,13 @@ var heatmap = function () {
   var xAxisHide = false;
   var yAxisHide = false;
   var legendHide = false;
+  var clickHandler = null;
+
+  function click (d, i, j) {
+    if (typeof clickHandler === 'function') {
+      clickHandler(d, i, j);
+    }
+  }
 
   function heatmap (selection) {
     var datum = selection.datum();
@@ -143,7 +150,8 @@ var heatmap = function () {
           .attr('height', gridSize)
           .style('stroke', 'white')
           .style('stroke-opacity', 0.6)
-          .style('fill', function (d) { return colorScale(d) });
+          .style('fill', function (d) { return colorScale(d) })
+          .on('click', function (d, j) { return click(d, i, j) });
       });
 
     // Append title to the top
@@ -327,6 +335,12 @@ var heatmap = function () {
   heatmap.legendHide = function (_) {
     if (!arguments.length) { return legendHide }
     legendHide = _;
+    return heatmap
+  };
+
+  heatmap.onClick = function (_) {
+    if (!arguments.length) { return clickHandler }
+    clickHandler = _;
     return heatmap
   };
 

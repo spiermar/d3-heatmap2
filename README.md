@@ -122,4 +122,16 @@ Hide yAxis label. Defaults to `false` if not set. If called with no arguments, `
 
 <a href="#legendHide" name="legendHide">#</a> heatmap.<b>legendHide</b>(<i>[bool]</i>)
 
-Hide heatmap legend. Defaults to `false` if not set. If called with no arguments, `legendHide` will return the status of the heatmap legend. 
+Hide heatmap legend. Defaults to `false` if not set. If called with no arguments, `legendHide` will return the status of the heatmap legend.
+
+<a name="onClick" href="#onClick">#</a> heatmap.<b>onClick</b>(<i>[function]</i>)
+
+Defines a function that will be executed when the user clicks on a frame. Function takes 3 arguments, the value, the column index and row index respectively.
+
+```js
+heatmap.onClick(function (d, i, j) {
+    console.info("Clicked on row " + j + ", column " + i + ", value " + d);
+});
+```
+
+If called with no arguments, `onClick` will return the click handler. 

@@ -31,6 +31,10 @@
 	<script src="d3-heatmap.js"></script>
 
 	<script>
+		function onClick(d, i, j) {
+			console.info("Clicked on row " + j + ", column " + i + ", value " + d);
+		}
+	
 		var h = d3.heatmap()
 			.title("Latency Heatmap")
 			.subtitle("github.com/spiermar/d3-heatmap")
@@ -41,6 +45,7 @@
 			.xAxisHide(false)
 			.yAxisHide(false)
 			.legendHide(false)
+			.onClick(onClick)
 			.colorScale(d3.scaleLinear()
 				.domain([0, 65 / 2, 65])
 				.range(['#F5F5DC', '#FF5032', '#E50914'])
