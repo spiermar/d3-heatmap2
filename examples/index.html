@@ -38,17 +38,21 @@
 	<script src="d3-heatmap2.js"></script>
 
 	<script>
+		var h;
+
 		d3.json("data.json", function(error, data) {
 			if (error) return console.warn(error)
 			function onClick(d, i, j) {
 				console.info("Clicked on range " + data.rows[j] + ", time " + data.columns[i] + ", count " + d)
+				h.setHighlight([[i, j]])
+				h.updateHighlight()
 			}
 
 			function onMouseOver(d, i, j) {
 				document.getElementById("details").innerHTML = "time: " + data.columns[i] + ", range: " + data.rows[j] + ", count: " + d
 			}
 		
-			var h = d3.heatmap()
+			h = d3.heatmap()
 				.title("Latency Heatmap")
 				.subtitle("github.com/spiermar/d3-heatmap2")
 				.legendLabel("Count")

@@ -6,7 +6,13 @@
 
 /* global d3 */
 
+function cantorPair (x, y) {
+  var z = ((x + y) * (x + y + 1)) / 2 + y;
+  return z
+}
+
 var heatmap = function () {
+  var svg = null;
   var title = '';
   var subtitle = '';
   var legendLabel = '';
@@ -17,6 +23,7 @@ var heatmap = function () {
     bottom: 0,
     left: 0
   };
+  var gridSize = null;
   var colorScale = null;
 
   var xAxisScale = null;
@@ -34,6 +41,8 @@ var heatmap = function () {
   var clickHandler = null;
   var mouseOverHandler = null;
 
+  var highlight = [];
+
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
       clickHandler(d, i, j);
@@ -46,11 +55,33 @@ var heatmap = function () {
     }
   }
 
+  function updateHighlight () {
+    if (highlight && highlight.length > 0 && svg && gridSize) {
+      svg.selectAll('g.highlight')
+        .remove()
+        .data(highlight, function (d) { return cantorPair(d[0], d[1]) })
+        .enter().append('g')
+        .attr('class', 'highlight')
+        .append('rect')
+        .attr('x', function (d) { return d[0] * gridSize })
+        .attr('y', function (d) { return d[1] * gridSize })
+        .attr('width', gridSize)
+        .attr('height', gridSize)
+        .style('fill', '#ff69b4')
+        .style('fill-opacity', '0.6');
+    } else {
+      console.log("Error: Can't update highlight. Heatmap was not initialized or highlight was not defined.");
+    }
+  }
+
   function heatmap (selection) {
     var data = selection.datum();
 
     var columns = data.length;
     var rows = data[0].length;
+
+    gridSize = Math.floor(width / columns);
+    var height = gridSize * (rows + 2);
 
     if (title) {
       margin.top = margin.top + 50;
@@ -68,9 +99,6 @@ var heatmap = function () {
       margin.left = margin.left + 50;
     }
 
-    var gridSize = Math.floor(width / columns);
-    var height = gridSize * (rows + 2);
-
     var max = 0;
     for (let i = 0; i < data.length; i++) {
       for (let j = 0; j < data[i].length; j++) {
@@ -85,7 +113,7 @@ var heatmap = function () {
         // .interpolate(d3.interpolateHcl);
     }
 
-    var svg = selection
+    svg = selection
       .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
@@ -160,6 +188,10 @@ var heatmap = function () {
           .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
           .on('click', function (d, j) { return click(d, i, j) });
       });
+
+    if (highlight && highlight.length > 0) {
+      updateHighlight();
+    }
 
     // Append title to the top
     if (title) {
@@ -356,6 +388,14 @@ var heatmap = function () {
     yAxisLabels = _;
     return heatmap
   };
+
+  heatmap.setHighlight = function (_) {
+    if (!arguments.length) { return highlight }
+    highlight = _;
+    return heatmap
+  };
+
+  heatmap.updateHighlight = updateHighlight;
 
   return heatmap
 };
