@@ -117,7 +117,7 @@ export default function () {
     columns = data.length
     rows = data[0].length
 
-    gridSize = Math.floor(width / columns)
+    gridSize = width / columns
     var height = gridSize * (rows + 2)
 
     if (title) {
@@ -186,7 +186,8 @@ export default function () {
       if (xAxisScale) {
         var x = d3.scaleLinear()
           .domain(xAxisScale)
-          .range([0, width - margin.left - margin.right - 40])
+          // .range([0, width - margin.left - margin.right - 40])
+          .range([0, width - margin.left - margin.right])
 
         svg.append('g')
           .attr('transform', 'translate(5,3)')
