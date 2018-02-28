@@ -207,6 +207,41 @@ heatmap.yAxisLabels([0, 1, 2, ...]);
 
 If called with no arguments, `yAxisLabels` will return the heatmap yAxis labels array.
 
+<a name="highlightColor" href="#highlightColor">#</a> heatmap.<b>highlightColor</b>(<i>[string]</i>)
+
+Heatmap highlight base color. Defaults to `#936EB5` if not set. If called with no arguments, `highlightColor` will return the heatmap highlight base color.
+
+<a name="highlightOpacity" href="#highlightOpacity">#</a> heatmap.<b>highlightOpacity</b>(<i>[string]</i>)
+
+Heatmap highlight opacity. Defaults to `0.4` if not set. If called with no arguments, `highlightOpacity` will return the heatmap highlight opacity.
+
+<a name="setHighlight" href="#setHighlight">#</a> heatmap.<b>setHighlight</b>(<i>[string]</i>)
+
+Set heatmap highlight ranges. Defaults to `[]` if not set, which doesn't highlight any frame. 
+
+```js
+heatmap.setHighlight(
+    [
+        {"start": [0,0], "end": [0,3]},
+        {"start": [1,0], "end": [1,3]}
+    ]
+);
+```
+
+The highlight range object must contain a start property and an end property. Start and end properties are tuples, `[column, row]` coordinates, in a two integer array format.
+
+If called with no arguments, `setHighlight` will return the selected heatmap highlight ranges.
+
+<a name="updateHighlight" href="#updateHighlight">#</a> heatmap.<b>updateHighlight</b>()
+
+Updates the heatmap highlights based on the ranges set by the `setHighlight` function. `updateHighlight` is executed automatically at first draw, if highlight ranges are set.
+
+```js
+heatmap.updateHighlight();
+```
+
+`updateHighlight` takes no arguments and returns `void`.
+
 ## Acknowledgements
 
 Thank you [Nadieh Bremer](https://twitter.com/NadiehBremer) for the visual inspiration and [D3.js examples](https://www.visualcinnamon.com/2016/05/smooth-color-legend-d3-svg-gradient.html).

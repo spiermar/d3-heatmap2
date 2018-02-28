@@ -7,6 +7,8 @@ function cantorPair (x, y) {
 
 export default function () {
   var svg = null
+  var columns = 0
+  var rows = 0
   var title = ''
   var subtitle = ''
   var legendLabel = ''
@@ -36,6 +38,8 @@ export default function () {
   var mouseOverHandler = null
 
   var highlight = []
+  var highlightColor = '#936EB5'
+  var highlightOpacity = '0.4'
 
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
@@ -49,30 +53,69 @@ export default function () {
     }
   }
 
+  function getHighlightFrames () {
+    var highlightFrames = []
+    for (var k in highlight) { // all highlights
+      if (highlight[k].start[0] <= highlight[k].end[0]) { // no reverse column range highlight
+        for (var i = highlight[k].start[0]; i <= highlight[k].end[0]; i++) {
+          var j = null
+          if (i > highlight[k].start[0] && i < highlight[k].end[0]) { // middle columns
+            for (j = 0; j < rows; j++) {
+              highlightFrames.push([i, j])
+            }
+          } else if (i === highlight[k].start[0]) { // start column, or start and end are the same
+            if (i === highlight[k].end[0]) { // ends in the same column
+              if (highlight[k].start[1] <= highlight[k].end[1]) { // no reverse row range highlight
+                for (j = highlight[k].start[1]; j <= highlight[k].end[1]; j++) {
+                  highlightFrames.push([i, j])
+                }
+              } else {
+                console.log('Error: Start row is higher than end row. No reverse range highlight.')
+              }
+            } else { // doesn't end in the same column
+              for (j = highlight[k].start[1]; j < rows; j++) {
+                highlightFrames.push([i, j])
+              }
+            }
+          } else { // end column, when different than start column
+            for (j = highlight[k].end[1]; j >= 0; j--) {
+              highlightFrames.push([i, j])
+            }
+          }
+        }
+      } else {
+        console.log('Error: Start column is higher than end column. No reverse range highlight.')
+      }
+    }
+    return highlightFrames
+  }
+
   function updateHighlight () {
-    if (highlight && highlight.length > 0 && svg && gridSize) {
-      svg.selectAll('g.highlight')
-        .remove()
-        .data(highlight, function (d) { return cantorPair(d[0], d[1]) })
-        .enter().append('g')
+    if (highlight && highlight.length > 0 && svg && rows && gridSize) {
+      var highlightFrames = getHighlightFrames()
+      var frames = svg.selectAll('g.highlight')
+        .data(highlightFrames, function (d) { return cantorPair(d[0], d[1]) })
+      frames.exit().remove()
+      frames.enter().append('g')
         .attr('class', 'highlight')
         .append('rect')
         .attr('x', function (d) { return d[0] * gridSize })
         .attr('y', function (d) { return d[1] * gridSize })
         .attr('width', gridSize)
         .attr('height', gridSize)
-        .style('fill', '#ff69b4')
-        .style('fill-opacity', '0.6')
+        .style('fill', highlightColor)
+        .style('fill-opacity', highlightOpacity)
+        .style('pointer-events', 'none')
     } else {
-      console.log("Error: Can't update highlight. Heatmap was not initialized or highlight was not defined.")
+      console.log("Error: Can't update highlight. Heatmap was not initialized yet or highlight was not defined.")
     }
   }
 
   function heatmap (selection) {
     var data = selection.datum()
 
-    var columns = data.length
-    var rows = data[0].length
+    columns = data.length
+    rows = data[0].length
 
     gridSize = Math.floor(width / columns)
     var height = gridSize * (rows + 2)
@@ -179,6 +222,7 @@ export default function () {
           .style('stroke', 'white')
           .style('stroke-opacity', 0.6)
           .style('fill', function (d) { return colorScale(d) })
+          .style('pointer-events', 'all')
           .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
           .on('click', function (d, j) { return click(d, i, j) })
       })
@@ -380,6 +424,18 @@ export default function () {
   heatmap.yAxisLabels = function (_) {
     if (!arguments.length) { return yAxisLabels }
     yAxisLabels = _
+    return heatmap
+  }
+
+  heatmap.highlightColor = function (_) {
+    if (!arguments.length) { return highlightColor }
+    highlightColor = _
+    return heatmap
+  }
+
+  heatmap.highlightOpacity = function (_) {
+    if (!arguments.length) { return highlightOpacity }
+    highlightOpacity = _
     return heatmap
   }
 
