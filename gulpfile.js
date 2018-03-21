@@ -44,14 +44,14 @@ gulp.task('style', function () {
     .pipe(gulp.dest('./dist'))
 })
 
-gulp.task('rollup-watch', gulp.series('rollup', function(done) {
+gulp.task('rollup-watch', gulp.series('rollup', function (done) {
   browserSync.reload()
-  done();
+  done()
 }))
 
-gulp.task('style-watch', gulp.series('style', function(done) {
+gulp.task('style-watch', gulp.series('style', function (done) {
   browserSync.reload()
-  done();
+  done()
 }))
 
 gulp.task('serve', gulp.series('lint', 'rollup', 'style', function () {
@@ -60,8 +60,8 @@ gulp.task('serve', gulp.series('lint', 'rollup', 'style', function () {
       baseDir: ['examples', 'dist']
     }
   })
-  gulp.watch("./src/*.js", gulp.series('rollup-watch'))
-  gulp.watch("./src/*.css", gulp.series('style-watch'))
+  gulp.watch('./src/*.js', gulp.series('rollup-watch'))
+  gulp.watch('./src/*.css', gulp.series('style-watch'))
 }))
 
 gulp.task('build', gulp.series('clean', 'lint', 'rollup', 'uglify', 'style'))

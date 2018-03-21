@@ -1,4 +1,4 @@
-/* global d3 */
+import { select, format, range, scaleLinear, axisLeft, axisTop, axisBottom } from 'd3'
 
 function cantorPair (x, y) {
   var z = ((x + y) * (x + y + 1)) / 2 + y
@@ -24,8 +24,8 @@ export default function () {
 
   var xAxisScale = null
   var yAxisScale = null
-  var xAxisTickFormat = d3.format('.0f')
-  var yAxisTickFormat = d3.format('.2s')
+  var xAxisTickFormat = format('.0f')
+  var yAxisTickFormat = format('.2s')
 
   var xAxisLabels = null
   var yAxisLabels = null
@@ -144,7 +144,7 @@ export default function () {
     }
 
     if (!colorScale) {
-      colorScale = d3.scaleLinear()
+      colorScale = scaleLinear()
         .domain([0, max / 2, max])
         .range(['#FFFFDD', '#3E9583', '#1F2D86'])
         // .interpolate(d3.interpolateHcl);
@@ -159,14 +159,14 @@ export default function () {
 
     if (yAxisScale || yAxisLabels) {
       if (yAxisScale) {
-        var y = d3.scaleLinear()
+        var y = scaleLinear()
           .domain(yAxisScale)
           .range([height, 0])
 
         svg.append('g')
           .attr('transform', 'translate(3,-12)')
           .attr('class', 'rowLabel axis')
-          .call(d3.axisLeft(y)
+          .call(axisLeft(y)
             .ticks(20)
             .tickFormat(yAxisTickFormat))
       } else {
@@ -184,7 +184,7 @@ export default function () {
 
     if (xAxisScale || xAxisLabels) {
       if (xAxisScale) {
-        var x = d3.scaleLinear()
+        var x = scaleLinear()
           .domain(xAxisScale)
           // .range([0, width - margin.left - margin.right - 40])
           .range([0, width - margin.left - margin.right])
@@ -192,7 +192,7 @@ export default function () {
         svg.append('g')
           .attr('transform', 'translate(5,3)')
           .attr('class', 'columnLabel axis')
-          .call(d3.axisTop(x)
+          .call(axisTop(x)
             .ticks(20)
             .tickFormat(xAxisTickFormat))
       } else {
@@ -212,7 +212,7 @@ export default function () {
       .data(data)
       .enter().append('g')
       .each(function (d, i) { // function (d, i, j) might replace .each.
-        d3.select(this).selectAll('rect')
+        select(this).selectAll('rect')
           .data(d)
           .enter().append('rect')
           .attr('x', function (d) { return i * gridSize }) // column
@@ -253,7 +253,7 @@ export default function () {
 
     if (!hideLegend) {
       // Extra scale since the color scale is interpolated
-      var countScale = d3.scaleLinear()
+      var countScale = scaleLinear()
         .domain([0, max])
         .range([0, width])
 
@@ -274,7 +274,7 @@ export default function () {
         .attr('x1', '0%').attr('y1', '0%')
         .attr('x2', '100%').attr('y2', '0%')
         .selectAll('stop')
-        .data(d3.range(numStops))
+        .data(range(numStops))
         .enter().append('stop')
         .attr('offset', function (d, i) {
           return countScale(countPoint[i]) / width
@@ -308,12 +308,12 @@ export default function () {
         .text(legendLabel)
 
       // Set scale for x-axis
-      var xScale = d3.scaleLinear()
+      var xScale = scaleLinear()
         .range([-legendWidth / 2, legendWidth / 2])
         .domain([0, max])
 
       // Define x-axis
-      var xAxis = d3.axisBottom()
+      var xAxis = axisBottom()
         .ticks(5)
         // .tickFormat(formatPercent)
         .scale(xScale)

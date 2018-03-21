@@ -1,10 +1,8 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(factory((global.d3 = global.d3 || {})));
-}(this, (function (exports) { 'use strict';
-
-/* global d3 */
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('d3')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'd3'], factory) :
+	(factory((global.d3 = global.d3 || {}),global.d3));
+}(this, (function (exports,d3) { 'use strict';
 
 function cantorPair (x, y) {
   var z = ((x + y) * (x + y + 1)) / 2 + y;

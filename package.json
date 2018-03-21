@@ -38,6 +38,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "d3": "^4.13.0",
     "yargs": "^11.0.0"
   }
 }
