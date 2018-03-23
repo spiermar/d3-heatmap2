@@ -87,7 +87,7 @@ var heatmap = function () {
             } else { // inverted row selection
               if (i === highlight[k].end[0]) { // ends in the same column
                 if (highlight[k].start[1] >= highlight[k].end[1]) { // no reverse row range highlight. backwards in inverted.
-                  for (j = highlight[k].start[1]; j <= highlight[k].end[1]; j++) {
+                  for (j = highlight[k].start[1]; j >= highlight[k].end[1]; j--) {
                     highlightFrames.push([i, j]);
                   }
                 } else {
