@@ -161,10 +161,10 @@ export default function () {
       if (yAxisScale) {
         var y = scaleLinear()
           .domain(yAxisScale)
-          .range([height, 0])
+          .range([(gridSize * rows), 0])
 
         svg.append('g')
-          .attr('transform', 'translate(3,-12)')
+          .attr('transform', 'translate(3, 0)')
           .attr('class', 'rowLabel axis')
           .call(axisLeft(y)
             .ticks(20)
