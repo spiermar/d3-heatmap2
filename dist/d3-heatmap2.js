@@ -45,6 +45,8 @@ var heatmap = function () {
   var highlightColor = '#936EB5';
   var highlightOpacity = '0.4';
 
+  var invertHighlightRows = false;
+
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
       clickHandler(d, i, j);
@@ -68,22 +70,44 @@ var heatmap = function () {
               highlightFrames.push([i, j]);
             }
           } else if (i === highlight[k].start[0]) { // start column, or start and end are the same
-            if (i === highlight[k].end[0]) { // ends in the same column
-              if (highlight[k].start[1] <= highlight[k].end[1]) { // no reverse row range highlight
-                for (j = highlight[k].start[1]; j <= highlight[k].end[1]; j++) {
+            if (!invertHighlightRows) { // not inverted row selection
+              if (i === highlight[k].end[0]) { // ends in the same column
+                if (highlight[k].start[1] <= highlight[k].end[1]) { // no reverse row range highlight
+                  for (j = highlight[k].start[1]; j <= highlight[k].end[1]; j++) {
+                    highlightFrames.push([i, j]);
+                  }
+                } else {
+                  console.log('Error: Start row is higher than end row. No reverse range highlight.');
+                }
+              } else { // doesn't end in the same column
+                for (j = highlight[k].start[1]; j < rows; j++) {
                   highlightFrames.push([i, j]);
                 }
-              } else {
-                console.log('Error: Start row is higher than end row. No reverse range highlight.');
               }
-            } else { // doesn't end in the same column
-              for (j = highlight[k].start[1]; j < rows; j++) {
-                highlightFrames.push([i, j]);
+            } else { // inverted row selection
+              if (i === highlight[k].end[0]) { // ends in the same column
+                if (highlight[k].start[1] >= highlight[k].end[1]) { // no reverse row range highlight. backwards in inverted.
+                  for (j = highlight[k].start[1]; j <= highlight[k].end[1]; j++) {
+                    highlightFrames.push([i, j]);
+                  }
+                } else {
+                  console.log('Error: Start row is higher than end row. No reverse range highlight.');
+                }
+              } else { // doesn't end in the same column
+                for (j = highlight[k].start[1]; j >= 0; j--) {
+                  highlightFrames.push([i, j]);
+                }
               }
             }
           } else { // end column, when different than start column
-            for (j = highlight[k].end[1]; j >= 0; j--) {
-              highlightFrames.push([i, j]);
+            if (!invertHighlightRows) { // not inverted row selection
+              for (j = highlight[k].end[1]; j >= 0; j--) {
+                highlightFrames.push([i, j]);
+              }
+            } else { // inverted row selection
+              for (j = highlight[k].end[1]; j < rows; j++) {
+                highlightFrames.push([i, j]);
+              }
             }
           }
         }
@@ -447,6 +471,12 @@ var heatmap = function () {
   heatmap.setHighlight = function (_) {
     if (!arguments.length) { return highlight }
     highlight = _;
+    return heatmap
+  };
+
+  heatmap.invertHighlightRows = function (_) {
+    if (!arguments.length) { return invertHighlightRows }
+    invertHighlightRows = _;
     return heatmap
   };
 

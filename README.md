@@ -232,6 +232,10 @@ The highlight range object must contain a start property and an end property. St
 
 If called with no arguments, `setHighlight` will return the selected heatmap highlight ranges.
 
+<a href="#invertHighlightRow" name="invertHighlightRow">#</a> heatmap.<b>invertHighlightRow</b>(<i>[bool]</i>)
+
+Inverts the highlight row selection. Defaults to `false` if not set. If called with no arguments, `invertHighlightRow` will return the status of the highlight inverse row selection option.
+
 <a name="updateHighlight" href="#updateHighlight">#</a> heatmap.<b>updateHighlight</b>()
 
 Updates the heatmap highlights based on the ranges set by the `setHighlight` function. `updateHighlight` is executed automatically at first draw, if highlight ranges are set.
