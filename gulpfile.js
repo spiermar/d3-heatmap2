@@ -7,6 +7,10 @@ var rename = require('gulp-rename')
 var eslint = require('gulp-eslint')
 var browserSync = require('browser-sync').create()
 
+const rollupGlobals = {
+  'd3': 'd3'
+}
+
 gulp.task('clean', function () {
   return del(['dist'])
 })
@@ -21,10 +25,12 @@ gulp.task('lint', function () {
 gulp.task('rollup', function () {
   return rollup({
     input: './index.js',
+    external: Object.keys(rollupGlobals),
     name: 'd3',
     format: 'umd',
     extend: true,
-    sourcemap: false
+    sourcemap: false,
+    globals: rollupGlobals
   })
     .pipe(source('d3-heatmap2.js'))
     .pipe(gulp.dest('./dist'))
