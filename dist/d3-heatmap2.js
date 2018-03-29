@@ -119,7 +119,7 @@ var heatmap = function () {
   }
 
   function updateHighlight () {
-    if (highlight && highlight.length > 0 && svg && rows && gridSize) {
+    if (svg && rows && gridSize) {
       var highlightFrames = getHighlightFrames();
       var frames = svg.selectAll('g.highlight')
         .data(highlightFrames, function (d) { return cantorPair(d[0], d[1]) });
@@ -135,7 +135,7 @@ var heatmap = function () {
         .style('fill-opacity', highlightOpacity)
         .style('pointer-events', 'none');
     } else {
-      console.log("Error: Can't update highlight. Heatmap was not initialized yet or highlight was not defined.");
+      console.log("Error: Can't update highlight. Heatmap was not initialized.");
     }
   }
 
