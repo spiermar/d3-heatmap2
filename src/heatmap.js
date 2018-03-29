@@ -26,6 +26,8 @@ export default function () {
   var yAxisScale = null
   var xAxisTickFormat = format('.0f')
   var yAxisTickFormat = format('.2s')
+  var xAxisScaleTicks = 20
+  var yAxisScaleTicks = 20
 
   var xAxisLabels = null
   var yAxisLabels = null
@@ -191,7 +193,7 @@ export default function () {
           .attr('transform', 'translate(3, 0)')
           .attr('class', 'rowLabel axis')
           .call(axisLeft(y)
-            .ticks(20)
+            .ticks(yAxisScaleTicks)
             .tickFormat(yAxisTickFormat))
       } else {
         svg.selectAll('.rowLabel')
@@ -217,7 +219,7 @@ export default function () {
           .attr('transform', 'translate(5,3)')
           .attr('class', 'columnLabel axis')
           .call(axisTop(x)
-            .ticks(20)
+            .ticks(xAxisScaleTicks)
             .tickFormat(xAxisTickFormat))
       } else {
         svg.selectAll('.columnLabel')
@@ -395,6 +397,18 @@ export default function () {
   heatmap.yAxisScale = function (_) {
     if (!arguments.length) { return yAxisScale }
     yAxisScale = _
+    return heatmap
+  }
+
+  heatmap.xAxisScaleTicks = function (_) {
+    if (!arguments.length) { return xAxisScaleTicks }
+    xAxisScaleTicks = _
+    return heatmap
+  }
+
+  heatmap.yAxisScaleTicks = function (_) {
+    if (!arguments.length) { return yAxisScaleTicks }
+    yAxisScaleTicks = _
     return heatmap
   }
 

@@ -119,6 +119,18 @@ heatmap.yAxisScale([0, 100]);
 
 If called with no arguments, `yAxisScale` will return the heatmap yAxis scale domain array.
 
+<a name="xAxisScaleTicks" href="#xAxisScaleTicks">#</a> heatmap.<b>xAxisScaleTicks</b>(<i>[integer]</i>)
+
+If using `xAxisScale`, defines the number of scale ticks. Defaults to `20` if not set.
+
+If called with no arguments, `xAxisScaleTicks` will return the number of ticks in the xAxis scale.
+
+<a name="yAxisScaleTicks" href="#yAxisScaleTicks">#</a> heatmap.<b>yAxisScaleTicks</b>(<i>[integer]</i>)
+
+If using `yAxisScale`, defines the number of scale ticks. Defaults to `20` if not set.
+
+If called with no arguments, `yAxisScaleTicks` will return the number of ticks in the yAxis scale.
+
 <a name="xAxisLabelFormat" href="#xAxisLabelFormat">#</a> heatmap.<b>xAxisLabelFormat</b>(<i>[function]</i>)
 
 Heatmap xAxis label formatter function. The label formatter function takes a single argument, the label array value, and returns a label string. Defaults to `function (d) { return d }` if not set, which displays the value in the xAxis labels array.
