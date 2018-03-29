@@ -30,6 +30,8 @@ var heatmap = function () {
   var yAxisScale = null;
   var xAxisTickFormat = d3.format('.0f');
   var yAxisTickFormat = d3.format('.2s');
+  var xAxisScaleTicks = 20;
+  var yAxisScaleTicks = 20;
 
   var xAxisLabels = null;
   var yAxisLabels = null;
@@ -195,7 +197,7 @@ var heatmap = function () {
           .attr('transform', 'translate(3, 0)')
           .attr('class', 'rowLabel axis')
           .call(d3.axisLeft(y)
-            .ticks(20)
+            .ticks(yAxisScaleTicks)
             .tickFormat(yAxisTickFormat));
       } else {
         svg.selectAll('.rowLabel')
@@ -221,7 +223,7 @@ var heatmap = function () {
           .attr('transform', 'translate(5,3)')
           .attr('class', 'columnLabel axis')
           .call(d3.axisTop(x)
-            .ticks(20)
+            .ticks(xAxisScaleTicks)
             .tickFormat(xAxisTickFormat));
       } else {
         svg.selectAll('.columnLabel')
@@ -399,6 +401,18 @@ var heatmap = function () {
   heatmap.yAxisScale = function (_) {
     if (!arguments.length) { return yAxisScale }
     yAxisScale = _;
+    return heatmap
+  };
+
+  heatmap.xAxisScaleTicks = function (_) {
+    if (!arguments.length) { return xAxisScaleTicks }
+    xAxisScaleTicks = _;
+    return heatmap
+  };
+
+  heatmap.yAxisScaleTicks = function (_) {
+    if (!arguments.length) { return yAxisScaleTicks }
+    yAxisScaleTicks = _;
     return heatmap
   };
 
