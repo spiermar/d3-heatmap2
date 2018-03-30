@@ -45,6 +45,8 @@ export default function () {
 
   var invertHighlightRows = false
 
+  var gridStrokeOpacity = 0.6
+
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
       clickHandler(d, i, j)
@@ -247,7 +249,7 @@ export default function () {
           .attr('width', gridSize)
           .attr('height', gridSize)
           .style('stroke', 'white')
-          .style('stroke-opacity', 0.6)
+          .style('stroke-opacity', gridStrokeOpacity)
           .style('fill', function (d) { return colorScale(d) })
           .style('pointer-events', 'all')
           .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
@@ -463,6 +465,12 @@ export default function () {
   heatmap.yAxisLabels = function (_) {
     if (!arguments.length) { return yAxisLabels }
     yAxisLabels = _
+    return heatmap
+  }
+
+  heatmap.gridStrokeOpacity = function (_) {
+    if (!arguments.length) { return gridStrokeOpacity }
+    gridStrokeOpacity = _
     return heatmap
   }
 
