@@ -143,9 +143,6 @@ export default function () {
     columns = data.length
     rows = data[0].length
 
-    gridSize = width / columns
-    var height = gridSize * (rows + 2)
-
     if (title) {
       margin.top = margin.top + 50
     }
@@ -161,6 +158,9 @@ export default function () {
     if (yAxisScale || yAxisLabels) {
       margin.left = margin.left + 50
     }
+
+    gridSize = (width - margin.left - margin.right) / columns
+    var height = gridSize * (rows + 2)
 
     var max = 0
     for (let i = 0; i < data.length; i++) {
@@ -178,7 +178,7 @@ export default function () {
 
     svg = selection
       .append('svg')
-      .attr('width', width + margin.left + margin.right)
+      .attr('width', width + margin.left + margin.right + 10)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
