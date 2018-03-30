@@ -180,7 +180,7 @@ export default function () {
 
     svg = selection
       .append('svg')
-      .attr('width', width + margin.left + margin.right + 10)
+      .attr('width', width + margin.left + margin.right + 9)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
@@ -218,7 +218,7 @@ export default function () {
           .range([0, width - margin.left - margin.right])
 
         svg.append('g')
-          .attr('transform', 'translate(5,3)')
+          .attr('transform', 'translate(3, 3)')
           .attr('class', 'columnLabel axis')
           .call(axisTop(x)
             .ticks(xAxisScaleTicks)
@@ -243,7 +243,7 @@ export default function () {
         select(this).selectAll('rect')
           .data(d)
           .enter().append('rect')
-          .attr('x', function (d) { return i * gridSize }) // column
+          .attr('x', function (d) { return (i * gridSize) + 3 }) // column
           .attr('y', function (d, j) { return j * gridSize }) // row
           .attr('class', 'bordered')
           .attr('width', gridSize)
