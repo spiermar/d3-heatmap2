@@ -131,7 +131,7 @@ var heatmap = function () {
       frames.enter().append('g')
         .attr('class', 'highlight')
         .append('rect')
-        .attr('x', function (d) { return d[0] * gridSize })
+        .attr('x', function (d) { return (d[0] * gridSize) + 3 })
         .attr('y', function (d) { return d[1] * gridSize })
         .attr('width', gridSize)
         .attr('height', gridSize)
