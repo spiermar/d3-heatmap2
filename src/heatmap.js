@@ -35,6 +35,7 @@ export default function () {
   var yAxisLabelFormat = function (d) { return d }
 
   var hideLegend = false
+  var legendScaleTicks = 5
 
   var clickHandler = null
   var mouseOverHandler = null
@@ -342,7 +343,7 @@ export default function () {
 
       // Define x-axis
       var xAxis = axisBottom()
-        .ticks(5)
+        .ticks(legendScaleTicks)
         // .tickFormat(formatPercent)
         .scale(xScale)
 
@@ -441,6 +442,12 @@ export default function () {
   heatmap.hideLegend = function (_) {
     if (!arguments.length) { return hideLegend }
     hideLegend = _
+    return heatmap
+  }
+
+  heatmap.legendScaleTicks = function (_) {
+    if (!arguments.length) { return legendScaleTicks }
+    legendScaleTicks = _
     return heatmap
   }
 

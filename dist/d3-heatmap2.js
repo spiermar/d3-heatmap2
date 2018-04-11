@@ -39,6 +39,7 @@ var heatmap = function () {
   var yAxisLabelFormat = function (d) { return d };
 
   var hideLegend = false;
+  var legendScaleTicks = 5;
 
   var clickHandler = null;
   var mouseOverHandler = null;
@@ -346,7 +347,7 @@ var heatmap = function () {
 
       // Define x-axis
       var xAxis = d3.axisBottom()
-        .ticks(5)
+        .ticks(legendScaleTicks)
         // .tickFormat(formatPercent)
         .scale(xScale);
 
@@ -445,6 +446,12 @@ var heatmap = function () {
   heatmap.hideLegend = function (_) {
     if (!arguments.length) { return hideLegend }
     hideLegend = _;
+    return heatmap
+  };
+
+  heatmap.legendScaleTicks = function (_) {
+    if (!arguments.length) { return legendScaleTicks }
+    legendScaleTicks = _;
     return heatmap
   };
 

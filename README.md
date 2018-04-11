@@ -175,6 +175,12 @@ If called with no arguments, `yAxisTickFormat` will return the heatmap yAxis tic
 
 Hide heatmap legend. Defaults to `false` if not set. If called with no arguments, `hideLegend` will return the status of the heatmap legend.
 
+<a name="legendScaleTicks" href="#legendScaleTicks">#</a> heatmap.<b>legendScaleTicks</b>(<i>[integer]</i>)
+
+Defines the number of scale ticks in the legend. Defaults to `5` if not set.
+
+If called with no arguments, `legendScaleTicks` will return the number of ticks in the legend scale.
+
 <a href="#gridStrokeOpacity" name="gridStrokeOpacity">#</a> heatmap.<b>gridStrokeOpacity</b>(<i>[float]</i>)
 
 Set the heatmap grid stroke opacity. Grid stroke is `white` by default, and `gridStrokeOpacity` controls the stroke opacity, ranging from `0.0` to `1.0`, or completely transparent to completely white respectively. Defaults to `0.6` if not set.
