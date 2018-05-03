@@ -191,6 +191,8 @@ var heatmap = function () {
       .append('g')
       .attr('transform', 'translate(' + calculatedMargin.left + ',' + calculatedMargin.top + ')');
 
+    var fontSize = Math.min(gridSize, 10);
+
     if (yAxisScale || yAxisLabels) {
       if (yAxisScale) {
         var y = d3.scaleLinear()
@@ -211,6 +213,7 @@ var heatmap = function () {
           .attr('x', 0)
           .attr('y', function (d, i) { return i * gridSize })
           .style('text-anchor', 'end')
+          .style('font-size', fontSize + 'px')
           .attr('transform', 'translate(-6,' + gridSize / 1.2 + ')')
           .attr('class', 'rowLabel mono axis');
       }
@@ -230,6 +233,7 @@ var heatmap = function () {
             .ticks(xAxisScaleTicks)
             .tickFormat(xAxisTickFormat));
       } else {
+        var approxTextHeight = 1.40333 * fontSize;
         svg.selectAll('.columnLabel')
           .data(xAxisLabels)
           .enter().append('text')
@@ -237,7 +241,8 @@ var heatmap = function () {
           .attr('y', function (d, i) { return i * gridSize })
           .attr('x', 0)
           .style('text-anchor', 'beginning')
-          .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
+          .style('font-size', fontSize + 'px')
+          .attr('transform', 'translate(' + (gridSize + approxTextHeight) / 2 + ', -6) rotate(270)')
           .attr('class', 'columnLabel mono axis');
       }
     }
