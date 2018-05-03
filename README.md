@@ -270,6 +270,10 @@ heatmap.updateHighlight();
 
 `updateHighlight` takes no arguments and returns `void`.
 
+<a name="nullValueColor" href="#nullValueColor">#</a> heatmap.<b>nullValueColor</b>(<i>[string]</i>)
+
+Heatmap color for `null` data values. Defaults to `#CCCCCC` if not set. If called with no arguments, `nullValueColor` will return the heatmap color for `null` data values.
+
 ## Acknowledgements
 
 Thank you [Nadieh Bremer](https://twitter.com/NadiehBremer) for the visual inspiration and [D3.js examples](https://www.visualcinnamon.com/2016/05/smooth-color-legend-d3-svg-gradient.html).

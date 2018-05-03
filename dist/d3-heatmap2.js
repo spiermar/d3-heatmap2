@@ -52,6 +52,8 @@ var heatmap = function () {
 
   var gridStrokeOpacity = 0.6;
 
+  var nullValueColor = '#CCCCCC';
+
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
       clickHandler(d, i, j);
@@ -261,7 +263,7 @@ var heatmap = function () {
           .attr('height', gridSize)
           .style('stroke', 'white')
           .style('stroke-opacity', gridStrokeOpacity)
-          .style('fill', function (d) { return colorScale(d) })
+          .style('fill', function (d) { return d == null ? nullValueColor : colorScale(d) })
           .style('pointer-events', 'all')
           .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
           .on('click', function (d, j) { return click(d, i, j) });
@@ -516,6 +518,12 @@ var heatmap = function () {
   };
 
   heatmap.updateHighlight = updateHighlight;
+
+  heatmap.nullValueColor = function (_) {
+    if (!arguments.length) { return nullValueColor }
+    nullValueColor = _;
+    return heatmap
+  };
 
   return heatmap
 };
