@@ -43,6 +43,7 @@ var heatmap = function () {
 
   var clickHandler = null;
   var mouseOverHandler = null;
+  var mouseOutHandler = null;
 
   var highlight = [];
   var highlightColor = '#936EB5';
@@ -63,6 +64,12 @@ var heatmap = function () {
   function mouseOver (d, i, j) {
     if (typeof mouseOverHandler === 'function') {
       mouseOverHandler(d, i, j);
+    }
+  }
+
+  function mouseOut (d, i, j) {
+    if (typeof mouseOutHandler === 'function') {
+      mouseOutHandler(d, i, j);
     }
   }
 
@@ -266,6 +273,7 @@ var heatmap = function () {
           .style('fill', function (d) { return d == null ? nullValueColor : colorScale(d) })
           .style('pointer-events', 'all')
           .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
+          .on('mouseout', function (d, j) { return mouseOut(d, i, j) })
           .on('click', function (d, j) { return click(d, i, j) });
       });
 
@@ -472,6 +480,12 @@ var heatmap = function () {
   heatmap.onMouseOver = function (_) {
     if (!arguments.length) { return mouseOverHandler }
     mouseOverHandler = _;
+    return heatmap
+  };
+
+  heatmap.onMouseOut = function (_) {
+    if (!arguments.length) { return mouseOutHandler }
+    mouseOutHandler = _;
     return heatmap
   };
 
