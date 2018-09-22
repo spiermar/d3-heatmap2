@@ -209,7 +209,13 @@ heatmap.onMouseOver(function (d, i, j) {
 });
 ```
 
-If called with no arguments, `onMouseOver` will return the click handler.
+If called with no arguments, `onMouseOver` will return the mouse over handler.
+
+<a name="onMouseOut" href="#onMouseOut">#</a> heatmap.<b>onMouseOut</b>(<i>[function]</i>)
+
+Defines a function that will be executed when the user moves the mouse out of a frame. Function takes 3 arguments, the value, the column index and row index respectively.
+
+If called with no arguments, `onMouseOut` will return the mouse out handler.
 
 <a name="xAxisLabels" href="#xAxisLabels">#</a> heatmap.<b>xAxisLabels</b>(<i>[array]</i>)
 
@@ -269,6 +275,10 @@ heatmap.updateHighlight();
 ```
 
 `updateHighlight` takes no arguments and returns `void`.
+
+<a name="nullValueColor" href="#nullValueColor">#</a> heatmap.<b>nullValueColor</b>(<i>[string]</i>)
+
+Heatmap color for `null` data values. Defaults to `#CCCCCC` if not set. If called with no arguments, `nullValueColor` will return the heatmap color for `null` data values.
 
 ## Acknowledgements
 

@@ -43,6 +43,7 @@ var heatmap = function () {
 
   var clickHandler = null;
   var mouseOverHandler = null;
+  var mouseOutHandler = null;
 
   var highlight = [];
   var highlightColor = '#936EB5';
@@ -51,6 +52,8 @@ var heatmap = function () {
   var invertHighlightRows = false;
 
   var gridStrokeOpacity = 0.6;
+
+  var nullValueColor = '#CCCCCC';
 
   function click (d, i, j) {
     if (typeof clickHandler === 'function') {
@@ -61,6 +64,12 @@ var heatmap = function () {
   function mouseOver (d, i, j) {
     if (typeof mouseOverHandler === 'function') {
       mouseOverHandler(d, i, j);
+    }
+  }
+
+  function mouseOut (d, i, j) {
+    if (typeof mouseOutHandler === 'function') {
+      mouseOutHandler(d, i, j);
     }
   }
 
@@ -149,24 +158,25 @@ var heatmap = function () {
 
     columns = data.length;
     rows = data[0].length;
+    var calculatedMargin = Object.assign({}, margin);
 
     if (title) {
-      margin.top = margin.top + 50;
+      calculatedMargin.top = margin.top + 50;
     }
 
     if (subtitle) {
-      margin.top = margin.top + 20;
+      calculatedMargin.top = margin.top + 20;
     }
 
     if (!hideLegend) {
-      margin.bottom = margin.bottom + 50;
+      calculatedMargin.bottom = margin.bottom + 50;
     }
 
     if (yAxisScale || yAxisLabels) {
-      margin.left = margin.left + 50;
+      calculatedMargin.left = margin.left + 50;
     }
 
-    gridSize = (width - margin.left - margin.right) / columns;
+    gridSize = (width - calculatedMargin.left - calculatedMargin.right) / columns;
     var height = gridSize * (rows + 2);
 
     var max = 0;
@@ -185,10 +195,12 @@ var heatmap = function () {
 
     svg = selection
       .append('svg')
-      .attr('width', width + margin.left + margin.right + 9)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', width + calculatedMargin.left + calculatedMargin.right + 9)
+      .attr('height', height + calculatedMargin.top + calculatedMargin.bottom)
       .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', 'translate(' + calculatedMargin.left + ',' + calculatedMargin.top + ')');
+
+    var fontSize = Math.min(gridSize, 10);
 
     if (yAxisScale || yAxisLabels) {
       if (yAxisScale) {
@@ -210,6 +222,7 @@ var heatmap = function () {
           .attr('x', 0)
           .attr('y', function (d, i) { return i * gridSize })
           .style('text-anchor', 'end')
+          .style('font-size', fontSize + 'px')
           .attr('transform', 'translate(-6,' + gridSize / 1.2 + ')')
           .attr('class', 'rowLabel mono axis');
       }
@@ -219,8 +232,8 @@ var heatmap = function () {
       if (xAxisScale) {
         var x = d3.scaleLinear()
           .domain(xAxisScale)
-          // .range([0, width - margin.left - margin.right - 40])
-          .range([0, width - margin.left - margin.right]);
+          // .range([0, width - calculatedMargin.left - calculatedMargin.right - 40])
+          .range([0, width - calculatedMargin.left - calculatedMargin.right]);
 
         svg.append('g')
           .attr('transform', 'translate(3, 3)')
@@ -229,6 +242,7 @@ var heatmap = function () {
             .ticks(xAxisScaleTicks)
             .tickFormat(xAxisTickFormat));
       } else {
+        var approxTextHeight = 1.40333 * fontSize;
         svg.selectAll('.columnLabel')
           .data(xAxisLabels)
           .enter().append('text')
@@ -236,7 +250,8 @@ var heatmap = function () {
           .attr('y', function (d, i) { return i * gridSize })
           .attr('x', 0)
           .style('text-anchor', 'beginning')
-          .attr('transform', 'translate(' + gridSize / 1.4 + ', -6) rotate(270)')
+          .style('font-size', fontSize + 'px')
+          .attr('transform', 'translate(' + (gridSize + approxTextHeight) / 2 + ', -6) rotate(270)')
           .attr('class', 'columnLabel mono axis');
       }
     }
@@ -255,9 +270,10 @@ var heatmap = function () {
           .attr('height', gridSize)
           .style('stroke', 'white')
           .style('stroke-opacity', gridStrokeOpacity)
-          .style('fill', function (d) { return colorScale(d) })
+          .style('fill', function (d) { return d == null ? nullValueColor : colorScale(d) })
           .style('pointer-events', 'all')
           .on('mouseover', function (d, j) { return mouseOver(d, i, j) })
+          .on('mouseout', function (d, j) { return mouseOut(d, i, j) })
           .on('click', function (d, j) { return click(d, i, j) });
       });
 
@@ -467,6 +483,12 @@ var heatmap = function () {
     return heatmap
   };
 
+  heatmap.onMouseOut = function (_) {
+    if (!arguments.length) { return mouseOutHandler }
+    mouseOutHandler = _;
+    return heatmap
+  };
+
   heatmap.xAxisLabels = function (_) {
     if (!arguments.length) { return xAxisLabels }
     xAxisLabels = _;
@@ -510,6 +532,12 @@ var heatmap = function () {
   };
 
   heatmap.updateHighlight = updateHighlight;
+
+  heatmap.nullValueColor = function (_) {
+    if (!arguments.length) { return nullValueColor }
+    nullValueColor = _;
+    return heatmap
+  };
 
   return heatmap
 };
