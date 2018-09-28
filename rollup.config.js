@@ -2,7 +2,6 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 
 const rollupGlobals = {
-  'd3': 'd3'
 }
 
 export default {
