@@ -180,8 +180,8 @@ export default function () {
     var height = gridSize * (rows + 2)
 
     var max = 0
-    for (let i = 0; i < data.length; i++) {
-      for (let j = 0; j < data[i].length; j++) {
+    for (var i = 0; i < data.length; i++) {
+      for (var j = 0; j < data[i].length; j++) {
         if (data[i][j] > max) { max = data[i][j] }
       }
     }
@@ -312,8 +312,8 @@ export default function () {
       var countPoint = []
 
       countRange[2] = countRange[1] - countRange[0]
-      for (var i = 0; i < numStops; i++) {
-        countPoint.push(i * countRange[2] / (numStops - 1) + countRange[0])
+      for (var z = 0; z < numStops; z++) {
+        countPoint.push(z * countRange[2] / (numStops - 1) + countRange[0])
       }// for i
 
       // Create the gradient
