@@ -52,6 +52,7 @@
 			<h3 class="text-muted">d3-heatmap2</h3>
 		</div>
 		<div id="chart"></div>
+		<div id="legend"></div>
 		<hr>
 		<div id="details"></div>
 	</div>
@@ -152,6 +153,7 @@
 					bottom: 10,
 					left: 0
 				})
+				.legendElement("#legend")
 				
 			d3.select("#chart")
 				.datum(data.values)

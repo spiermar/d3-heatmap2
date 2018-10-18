@@ -3336,6 +3336,7 @@ function cantorPair (x, y) {
 
 var heatmap = function () {
   var svg = null;
+  var legendElement = null;
   var columns = 0;
   var rows = 0;
   var title = '';
@@ -3363,7 +3364,6 @@ var heatmap = function () {
   var xAxisLabelFormat = function (d) { return d };
   var yAxisLabelFormat = function (d) { return d };
 
-  var hideLegend = false;
   var legendScaleTicks = 5;
 
   var clickHandler = null;
@@ -3491,10 +3491,6 @@ var heatmap = function () {
 
     if (subtitle) {
       calculatedMargin.top = margin.top + 20;
-    }
-
-    if (!hideLegend) {
-      calculatedMargin.bottom = margin.bottom + 50;
     }
 
     if (yAxisScale || yAxisLabels) {
@@ -3625,7 +3621,16 @@ var heatmap = function () {
         .text(subtitle);
     }
 
-    if (!hideLegend) {
+    if (legendElement) {
+      var legendWidth = Math.min(width * 0.8, 400);
+
+      var legendSvg = select(legendElement)
+        .append('svg')
+        .attr('width', legendWidth + 16)
+        .attr('height', 100)
+        .append('g')
+        .attr('transform', 'translate(8, 0)');
+
       // Extra scale since the color scale is interpolated
       var countScale = linear()
         .domain([0, max])
@@ -3642,7 +3647,7 @@ var heatmap = function () {
       }// for i
 
       // Create the gradient
-      svg.append('defs')
+      legendSvg.append('defs')
         .append('linearGradient')
         .attr('id', 'legend-traffic')
         .attr('x1', '0%').attr('y1', '0%')
@@ -3657,16 +3662,15 @@ var heatmap = function () {
           return colorScale(countPoint[i])
         });
 
-      var legendWidth = Math.min(width * 0.8, 400);
       // Color Legend container
-      var legendsvg = svg.append('g')
+      var legendWrapper = legendSvg.append('g')
         .attr('class', 'legendWrapper')
-        .attr('transform', 'translate(' + (width / 2) + ',' + (gridSize * rows + 40) + ')');
+        .attr('transform', 'translate(0, 20)');
 
       // Draw the Rectangle
-      legendsvg.append('rect')
+      legendWrapper.append('rect')
         .attr('class', 'legendRect')
-        .attr('x', -legendWidth / 2)
+        .attr('x', 0)
         .attr('y', 0)
         // .attr("rx", hexRadius*1.25/2)
         .attr('width', legendWidth)
@@ -3674,9 +3678,9 @@ var heatmap = function () {
         .style('fill', 'url(#legend-traffic)');
 
       // Append title
-      legendsvg.append('text')
+      legendWrapper.append('text')
         .attr('class', 'legendTitle')
-        .attr('x', 0)
+        .attr('x', legendWidth / 2)
         .attr('y', -10)
         .style('text-anchor', 'middle')
         .text(legendLabel);
@@ -3693,9 +3697,9 @@ var heatmap = function () {
         .scale(xScale);
 
       // Set up X axis
-      legendsvg.append('g')
+      legendWrapper.append('g')
         .attr('class', 'axis')
-        .attr('transform', 'translate(0,' + (10) + ')')
+        .attr('transform', `translate(${legendWidth / 2}, 10)`)
         .call(xAxis);
     }
   }
@@ -3784,12 +3788,6 @@ var heatmap = function () {
     return heatmap
   };
 
-  heatmap.hideLegend = function (_) {
-    if (!arguments.length) { return hideLegend }
-    hideLegend = _;
-    return heatmap
-  };
-
   heatmap.legendScaleTicks = function (_) {
     if (!arguments.length) { return legendScaleTicks }
     legendScaleTicks = _;
@@ -3861,6 +3859,12 @@ var heatmap = function () {
   heatmap.nullValueColor = function (_) {
     if (!arguments.length) { return nullValueColor }
     nullValueColor = _;
+    return heatmap
+  };
+
+  heatmap.legendElement = function (_) {
+    if (!arguments.length) { return legendElement }
+    legendElement = _;
     return heatmap
   };
 
