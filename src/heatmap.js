@@ -18,8 +18,16 @@ export default function () {
   var subtitle = ''
   var legendLabel = ''
   var width = 960
+  var legendWidth = null
+  var legendHeight = 75
   var margin = {
     top: 20,
+    right: 0,
+    bottom: 0,
+    left: 0
+  }
+  var legendMargin = {
+    top: 0,
     right: 0,
     bottom: 0,
     left: 0
@@ -297,14 +305,16 @@ export default function () {
     }
 
     if (legendElement) {
-      var legendWidth = Math.min(width * 0.8, 400)
+      if (!legendWidth) {
+        legendWidth = Math.min(width * 0.8, 400)
+      }
 
       var legendSvg = select(legendElement)
         .append('svg')
-        .attr('width', legendWidth + 16)
-        .attr('height', 100)
+        .attr('width', legendWidth + legendMargin.left + legendMargin.right + 16)
+        .attr('height', legendHeight + legendMargin.top + legendMargin.bottom)
         .append('g')
-        .attr('transform', 'translate(8, 0)')
+        .attr('transform', `translate(${legendMargin.left + 8}, ${legendMargin.top})`)
 
       // Extra scale since the color scale is interpolated
       var countScale = scaleLinear()
@@ -540,6 +550,24 @@ export default function () {
   heatmap.legendElement = function (_) {
     if (!arguments.length) { return legendElement }
     legendElement = _
+    return heatmap
+  }
+
+  heatmap.legendWidth = function (_) {
+    if (!arguments.length) { return legendWidth }
+    legendWidth = _
+    return heatmap
+  }
+
+  heatmap.legendHeight = function (_) {
+    if (!arguments.length) { return legendHeight }
+    legendHeight = _
+    return heatmap
+  }
+
+  heatmap.legendMargin = function (_) {
+    if (!arguments.length) { return legendMargin }
+    legendMargin = _
     return heatmap
   }
 

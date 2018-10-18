@@ -68,6 +68,7 @@
 		var selectStart = null
 		var selectEnd = null
 		var invertHighlightRows = false
+		var width = 900
 
 		function select(cell) {
 			if (!selectStart) {
@@ -132,7 +133,7 @@
 				.title("")
 				.subtitle("")
 				.legendLabel("Count")
-				.width(900)
+				.width(width)
 				.xAxisScale([0,121])
 				// .yAxisScale([106,1999])
 				// .xAxisLabels(data.columns)
@@ -154,7 +155,14 @@
 					left: 0
 				})
 				.legendElement("#legend")
-				
+				.legendHeight(50)
+				.legendMargin({
+					top: 0,
+					right: 0,
+					bottom: 0,
+					left: (width - Math.min(width * 0.8, 400)) / 2
+				})
+
 			d3.select("#chart")
 				.datum(data.values)
 				.call(chart)
