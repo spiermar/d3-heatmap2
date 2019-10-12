@@ -183,10 +183,10 @@ If called with no arguments, `legendScaleTicks` will return the number of ticks 
 
 <a name="legendTickFormat" href="#legendTickFormat">#</a> heatmap.<b>legendTickFormat</b>(<i>[function]</i>)
 
-Replaces the built-in legend tick format. The tick format function takes a single argument, the tick value, and returns a formatted tick. Defaults to `d3.format('2')` if not set.
+Replaces the built-in legend tick format. The tick format function takes a single argument, the tick value, and returns a formatted tick. Defaults to `d3.format('.0f')` if not set.
 
 ```js
-heatmap.legendTickFormat(d3.format('.0f'));
+heatmap.legendTickFormat(d3.format('.2f'));
 ```
 
 If called with no arguments, `legendTickFormat` will return the heatmap _legendTickFormat_ function.

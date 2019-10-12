@@ -48,7 +48,7 @@ export default function () {
   var yAxisLabelFormat = function (d) { return d }
 
   var legendScaleTicks = 5
-  var legendTickFormat = format('2')
+  var legendTickFormat = format('.0f')
 
   var clickHandler = null
   var mouseOverHandler = null
@@ -410,7 +410,7 @@ export default function () {
   }
 
   heatmap.legendTickFormat = function (_) {
-    if (!arguments.legendTickFormat) { return legendTickFormat }
+    if (!arguments.length) { return legendTickFormat }
     legendTickFormat = _
     return heatmap
   }
