@@ -3373,6 +3373,7 @@ var heatmap = function () {
   var yAxisLabelFormat = function (d) { return d };
 
   var legendScaleTicks = 5;
+  var legendTickFormat = format('2');
 
   var clickHandler = null;
   var mouseOverHandler = null;
@@ -3704,7 +3705,8 @@ var heatmap = function () {
       var xAxis = axisBottom()
         .ticks(legendScaleTicks)
         // .tickFormat(formatPercent)
-        .scale(xScale);
+        .scale(xScale)
+        .tickFormat(legendTickFormat);
 
       // Set up X axis
       legendWrapper.append('g')
@@ -3729,6 +3731,12 @@ var heatmap = function () {
   heatmap.legendLabel = function (_) {
     if (!arguments.length) { return legendLabel }
     legendLabel = _;
+    return heatmap
+  };
+
+  heatmap.legendTickFormat = function (_) {
+    if (!arguments.legendTickFormat) { return legendTickFormat }
+    legendTickFormat = _;
     return heatmap
   };
 

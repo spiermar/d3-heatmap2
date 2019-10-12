@@ -48,6 +48,7 @@ export default function () {
   var yAxisLabelFormat = function (d) { return d }
 
   var legendScaleTicks = 5
+  var legendTickFormat = format('2')
 
   var clickHandler = null
   var mouseOverHandler = null
@@ -380,6 +381,7 @@ export default function () {
         .ticks(legendScaleTicks)
         // .tickFormat(formatPercent)
         .scale(xScale)
+        .tickFormat(legendTickFormat)
 
       // Set up X axis
       legendWrapper.append('g')
@@ -404,6 +406,12 @@ export default function () {
   heatmap.legendLabel = function (_) {
     if (!arguments.length) { return legendLabel }
     legendLabel = _
+    return heatmap
+  }
+
+  heatmap.legendTickFormat = function (_) {
+    if (!arguments.legendTickFormat) { return legendTickFormat }
+    legendTickFormat = _
     return heatmap
   }
 

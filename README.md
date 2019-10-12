@@ -181,6 +181,17 @@ Defines the number of scale ticks in the legend. Defaults to `5` if not set.
 
 If called with no arguments, `legendScaleTicks` will return the number of ticks in the legend scale.
 
+<a name="legendTickFormat" href="#legendTickFormat">#</a> heatmap.<b>legendTickFormat</b>(<i>[function]</i>)
+
+Replaces the built-in legend tick format. The tick format function takes a single argument, the tick value, and returns a formatted tick. Defaults to `d3.format('2')` if not set.
+
+```js
+heatmap.legendTickFormat(d3.format('.0f')
+);
+```
+
+If called with no arguments, `legendTickFormat` will return the heatmap _legendTickFormat_ function.
+
 <a href="#gridStrokeOpacity" name="gridStrokeOpacity">#</a> heatmap.<b>gridStrokeOpacity</b>(<i>[float]</i>)
 
 Set the heatmap grid stroke opacity. Grid stroke is `white` by default, and `gridStrokeOpacity` controls the stroke opacity, ranging from `0.0` to `1.0`, or completely transparent to completely white respectively. Defaults to `0.6` if not set.
