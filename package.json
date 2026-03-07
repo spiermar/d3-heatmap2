@@ -25,8 +25,7 @@
     "build": "vite build --config vite.config.mjs && vite build --config vite.config.min.mjs",
     "dev": "vite",
     "lint": "eslint src",
-    "test": "tape 'test/**/*-test.js'",
-    "prepare": "npm run test"
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -36,11 +35,15 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "axe-core": "^4.11.1",
     "eslint": "^10.0.3",
+    "jsdom": "^28.1.0",
     "tape": "^4.9.1",
     "uglify-es": "^3.3.9",
     "vite": "^7.3.1",
-    "vite-plugin-lib-inject-css": "^2.2.2"
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vitest": "^4.0.18",
+    "vitest-axe": "^0.1.0"
   },
   "dependencies": {
     "d3-array": "^1.2.4",
