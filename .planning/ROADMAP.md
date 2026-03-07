@@ -8,7 +8,7 @@
 
 ## Milestones
 
-- ✅ **v1.0 MVP** — Phases 1-4 (shipped 2026-03-07)
+- ✅ **v2.0 Project refactor** — Phases 1-4 (shipped 2026-03-07)
 - 🚧 **v2.0** — Next major release (planning needed)
 
 ---

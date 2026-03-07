@@ -10,21 +10,21 @@ A reusable D3.js heatmap component with configurable axes, color scales, legends
 
 ## Requirements
 
-### Validated (v1.0)
+### Validated (v2.0)
 
-- ✓ Heatmap rendering with 2D array data — v1.0
-- ✓ Configurable width and margins — v1.0
-- ✓ Color scale with gradient support — v1.0
-- ✓ X and Y axis scales (linear) — v1.0
-- ✓ X and Y axis labels (categorical) — v1.0
-- ✓ Legend with color gradient — v1.0
-- ✓ Click, mouseover, mouseout event handlers — v1.0
-- ✓ Highlight ranges for specific cells — v1.0
-- ✓ Null value handling with custom color — v1.0
-- ✓ Vite build system (UMD + ESM) — v1.0
-- ✓ Vitest testing infrastructure with jsdom — v1.0
-- ✓ 27 unit tests covering color, scale, highlight, accessibility — v1.0
-- ✓ Project structure (src/lib/, test/, examples/) — v1.0
+- ✓ Heatmap rendering with 2D array data — v2.0
+- ✓ Configurable width and margins — v2.0
+- ✓ Color scale with gradient support — v2.0
+- ✓ X and Y axis scales (linear) — v2.0
+- ✓ X and Y axis labels (categorical) — v2.0
+- ✓ Legend with color gradient — v2.0
+- ✓ Click, mouseover, mouseout event handlers — v2.0
+- ✓ Highlight ranges for specific cells — v2.0
+- ✓ Null value handling with custom color — v2.0
+- ✓ Vite build system (UMD + ESM) — v2.0
+- ✓ Vitest testing infrastructure with jsdom — v2.0
+- ✓ 27 unit tests covering color, scale, highlight, accessibility — v2.0
+- ✓ Project structure (src/lib/, test/, examples/) — v2.0
 
 ### Active (v2.0)
 
@@ -41,7 +41,7 @@ A reusable D3.js heatmap component with configurable axes, color scales, legends
 
 ## Context
 
-**Shipped v1.0** with:
+**Shipped v2.0** with:
 - Modern Vite build system (UMD + ESM outputs)
 - 27 Vitest tests with jsdom environment
 - Project restructured to match d3-flame-graph layout
@@ -68,4 +68,4 @@ A reusable D3.js heatmap component with configurable axes, color scales, legends
 | Project restructure to src/lib/ | Matches d3-flame-graph pattern | ✓ Good |
 
 ---
-*Last updated: 2026-03-07 after v1.0 milestone*
+*Last updated: 2026-03-07 after v2.0 milestone*
