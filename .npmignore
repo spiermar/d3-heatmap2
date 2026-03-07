@@ -1,2 +1,7 @@
 dist/*.zip
 test/
+.github/
+.worktrees/
+.gitignore
+.DS_Store
+npm-debug.log
