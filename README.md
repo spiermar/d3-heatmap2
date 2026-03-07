@@ -10,35 +10,52 @@ Click [here](http://bl.ocks.org/spiermar/raw/76dc64a7716205df91e51b485a2445e8/) 
 
 ## Installing
 
-If you use NPM, `npm install d3-heatmap2`. Otherwise, download the [latest release](https://github.com/spiermar/d3-heatmap2/releases/latest).
+```bash
+npm install d3-heatmap2
+```
 
 ## Getting Started
 
+### Using as an ES Module
+
+```javascript
+import heatmap from 'd3-heatmap2'
+import 'd3-heatmap2/dist/d3-heatmap2.css'
+
+const h = heatmap()
+  .width(960)
+  .colorScale(d3.scaleLinear()
+    .domain([0, 65 / 2, 65])
+    .range(['#F5F5DC', '#FF5032', '#E50914'])
+  )
+
+d3.select('#chart')
+  .datum(data)
+  .call(h)
+```
+
+### Using as a UMD Build
+
 ```html
 <head>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/spiermar/d3-heatmap2@0.1/dist/d3-heatmap2.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/d3-heatmap2/dist/d3-heatmap2.css">
 </head>
 <body>
   <div id="chart"></div>
   <div id="details"></div>
-  <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
-  <script src="https://cdn.jsdelivr.net/gh/spiermar/d3-heatmap2@0.1/dist/d3-heatmap2.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-heatmap2/dist/d3-heatmap2.umd.js"></script>
   <script>
-    d3.json("data.json", function(error, data) {
-        if (error) return console.warn(error)    
-        var h = d3.heatmap()
-            .width(960)
-            .xAxisScale([0,120])
-            .yAxisScale([0,2000])
-            .colorScale(d3.scaleLinear()
-                .domain([0, 65 / 2, 65])
-                .range(['#F5F5DC', '#FF5032', '#E50914'])
-            )
-            
-        d3.select("#chart")
-            .datum(data)
-            .call(h)
-    })
+    var h = d3.heatmap()
+      .width(960)
+      .colorScale(d3.scaleLinear()
+        .domain([0, 65 / 2, 65])
+        .range(['#F5F5DC', '#FF5032', '#E50914'])
+      )
+      
+    d3.select("#chart")
+      .datum(data)
+      .call(h)
   </script>
 </body>
 ```
@@ -289,6 +306,16 @@ heatmap.updateHighlight();
 <a name="nullValueColor" href="#nullValueColor">#</a> heatmap.<b>nullValueColor</b>(<i>[string]</i>)
 
 Heatmap color for `null` data values. Defaults to `#CCCCCC` if not set. If called with no arguments, `nullValueColor` will return the heatmap color for `null` data values.
+
+## Development
+
+```bash
+npm install
+npm run build
+npm run dev
+npm run test
+npm run lint
+```
 
 ## Acknowledgements
 

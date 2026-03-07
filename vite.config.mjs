@@ -14,7 +14,7 @@ export default defineConfig({
     copyPublicDir: false,
     cssCodeSplit: true,
     lib: {
-      entry: resolve(__dirname, "src/lib/heatmap.js"),
+      entry: resolve(__dirname, "lib/heatmap.js"),
       name: "heatmap",
       formats: ["umd", "es"],
       fileName: (format) => `d3-heatmap2.${format}.js`,

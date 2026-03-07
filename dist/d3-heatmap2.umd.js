@@ -200,7 +200,7 @@
         }
       }
       svg.selectAll("g.column").data(data).enter().append("g").each(function(d, i2) {
-        d3Selection.select(this).selectAll("rect").data(d).enter().append("rect").attr("x", function(d2) {
+        d3Selection.select(this).selectAll("rect").data(d).enter().append("rect").attr("x", function(_d) {
           return i2 * gridSize + 3;
         }).attr("y", function(d2, j2) {
           return j2 * gridSize;

@@ -1,1 +1,1 @@
-export { default } from './src/lib/heatmap'
+export { default } from './lib/heatmap'
