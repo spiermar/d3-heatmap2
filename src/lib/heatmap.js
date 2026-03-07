@@ -19,6 +19,7 @@ export default function () {
   var subtitle = ''
   var legendLabel = ''
   var width = 960
+  var height = 500
   var legendWidth = null
   var legendHeight = 75
   var margin = {
@@ -419,6 +420,12 @@ export default function () {
   heatmap.width = function (_) {
     if (!arguments.length) { return width }
     width = _
+    return heatmap
+  }
+
+  heatmap.height = function (_) {
+    if (!arguments.length) { return height }
+    height = _
     return heatmap
   }
 

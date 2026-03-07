@@ -16,6 +16,7 @@ function heatmap() {
   var subtitle = "";
   var legendLabel = "";
   var width = 960;
+  var height = 500;
   var legendWidth = null;
   var legendHeight = 75;
   var margin = {
@@ -161,7 +162,7 @@ function heatmap() {
       calculatedMargin.left = margin.left + 50;
     }
     gridSize = (width - calculatedMargin.left - calculatedMargin.right) / columns;
-    var height = gridSize * (rows + 2);
+    var height2 = gridSize * (rows + 2);
     var max = 0;
     for (var i = 0; i < data.length; i++) {
       for (var j = 0; j < data[i].length; j++) {
@@ -173,7 +174,7 @@ function heatmap() {
     if (!colorScale) {
       colorScale = scaleLinear().domain([0, max / 2, max]).range(["#FFFFDD", "#3E9583", "#1F2D86"]);
     }
-    svg = selection.append("svg").attr("width", width + calculatedMargin.left + calculatedMargin.right + 9).attr("height", height + calculatedMargin.top + calculatedMargin.bottom).append("g").attr("transform", "translate(" + calculatedMargin.left + "," + calculatedMargin.top + ")");
+    svg = selection.append("svg").attr("width", width + calculatedMargin.left + calculatedMargin.right + 9).attr("height", height2 + calculatedMargin.top + calculatedMargin.bottom).append("g").attr("transform", "translate(" + calculatedMargin.left + "," + calculatedMargin.top + ")");
     var fontSize = Math.min(gridSize, 10);
     if (yAxisScale || yAxisLabels) {
       if (yAxisScale) {
@@ -279,6 +280,13 @@ function heatmap() {
       return width;
     }
     width = _;
+    return heatmap2;
+  };
+  heatmap2.height = function(_) {
+    if (!arguments.length) {
+      return height;
+    }
+    height = _;
     return heatmap2;
   };
   heatmap2.margin = function(_) {
