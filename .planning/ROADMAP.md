@@ -12,8 +12,6 @@
 - [ ] **Phase 1: Build System Modernization** - Migrate from Gulp/Rollup to Vite
 - [ ] **Phase 2: Test Infrastructure** - Migrate from Tape to Vitest with jsdom and comprehensive tests
 - [ ] **Phase 3: Project Restructure** - Restructure to match d3-flame-graph (src/lib/, test/, examples/)
-- [ ] **Phase 4: Accessibility** - Implement ARIA labels and screen reader support
-- [ ] **Phase 4: Polish & Responsiveness** - Add resize handling and built-in tooltips
 
 ---
 
@@ -75,24 +73,6 @@
 
 ---
 
-### Phase 4: Accessibility
-
-**Goal:** Make heatmap usable by screen reader users with proper ARIA labeling
-
-**Depends on:** Phase 4 (axis implementation establishes component structure for accessibility)
-
-**Requirements:** ACCL-01, ACCL-02, ACCL-03, ACCL-04
-
-**Success Criteria** (what must be TRUE):
-1. Heatmap SVG root element has `role="graphics-document"` and `aria-label` describing the chart
-2. Each heatmap cell has an `aria-label` attribute describing its value and position (e.g., "Value: 42, Row: January, Column: Product A")
-3. SVG contains a `<title>` element that screen readers can read as chart description
-4. Legend element has proper `aria-label` or `aria-labelledby` identifying it as the color legend
-
-**Plans:** TBD
-
----
-
 ### Phase 4: Polish & Responsiveness
 
 **Goal:** Modern web integration with responsive resizing and built-in tooltips
@@ -117,8 +97,6 @@
 | 1. Build System Modernization | 0/1 | Not started | - |
 | 2. Test Infrastructure | 0/1 | Not started | - |
 | 3. Project Restructure | 0/1 | Not started | - |
-| 4. Accessibility | 0/1 | Not started | - |
-| 4. Polish & Responsiveness | 0/1 | Not started | - |
 
 ---
 
