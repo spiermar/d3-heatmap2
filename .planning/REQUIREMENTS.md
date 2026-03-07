@@ -7,6 +7,16 @@
 
 Requirements for initial release. Each maps to roadmap phases.
 
+### Build System
+
+- [ ] **BUILD-01**: Project uses Vite for builds (replaces Gulp + Rollup)
+- [ ] **BUILD-02**: Vite produces UMD and ESM builds with proper D3 externals
+
+### Project Structure
+
+- [ ] **REST-01**: Source code in `src/lib/` directory
+- [ ] **REST-02**: Tests in `test/` directory, examples in `src/examples/`
+
 ### Testing
 
 - [ ] **TEST-01**: Test infrastructure uses Vitest with jsdom environment
@@ -75,28 +85,32 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TEST-01 | Phase 1 | Pending |
-| TEST-02 | Phase 1 | Pending |
-| TEST-03 | Phase 1 | Pending |
-| TEST-04 | Phase 1 | Pending |
-| AXIS-01 | Phase 2 | Pending |
-| AXIS-02 | Phase 2 | Pending |
-| AXIS-03 | Phase 2 | Pending |
-| AXIS-04 | Phase 2 | Pending |
-| AXIS-05 | Phase 2 | Pending |
-| ACCL-01 | Phase 3 | Pending |
-| ACCL-02 | Phase 3 | Pending |
-| ACCL-03 | Phase 3 | Pending |
-| ACCL-04 | Phase 3 | Pending |
-| POLY-01 | Phase 4 | Pending |
-| POLY-02 | Phase 4 | Pending |
-| POLY-03 | Phase 4 | Pending |
+| BUILD-01 | Phase 1 | Pending |
+| BUILD-02 | Phase 1 | Pending |
+| REST-01 | Phase 3 | Pending |
+| REST-02 | Phase 3 | Pending |
+| TEST-01 | Phase 2 | Pending |
+| TEST-02 | Phase 2 | Pending |
+| TEST-03 | Phase 2 | Pending |
+| TEST-04 | Phase 2 | Pending |
+| AXIS-01 | Phase 4 | Pending |
+| AXIS-02 | Phase 4 | Pending |
+| AXIS-03 | Phase 4 | Pending |
+| AXIS-04 | Phase 4 | Pending |
+| AXIS-05 | Phase 4 | Pending |
+| ACCL-01 | Phase 5 | Pending |
+| ACCL-02 | Phase 5 | Pending |
+| ACCL-03 | Phase 5 | Pending |
+| ACCL-04 | Phase 5 | Pending |
+| POLY-01 | Phase 6 | Pending |
+| POLY-02 | Phase 6 | Pending |
+| POLY-03 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 16 total
-- Mapped to phases: 16
+- v1 requirements: 18 total
+- Mapped to phases: 18
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-07*
-*Last updated: 2026-03-07 after research synthesis*
+*Last updated: 2026-03-07 after modernization request*

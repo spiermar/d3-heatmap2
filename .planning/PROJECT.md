@@ -24,7 +24,10 @@ A reusable D3.js heatmap component with configurable axes, color scales, legends
 
 ### Active
 
-- [ ] Add tests for heatmap functionality
+- [ ] Migrate from Gulp/Rollup to Vite for build
+- [ ] Migrate from Tape to Vitest with jsdom
+- [ ] Add comprehensive tests for heatmap functionality
+- [ ] Restructure project similar to d3-flame-graph (src/lib/, test/, examples/)
 - [ ] Support additional axis types (band, time)
 - [ ] Improve accessibility (ARIA labels)
 
@@ -40,10 +43,10 @@ This is an existing npm package (d3-heatmap2) that has been published to npm. Th
 
 ## Constraints
 
-- **Tech Stack**: D3 v5 modules, Vanilla JavaScript (ES6+), no TypeScript
-- **Build**: Gulp + Rollup + uglify-es
-- **Testing**: Tape (currently no tests)
-- **Style**: StandardJS (no semicolons, 2-space indent, single quotes)
+- **Tech Stack**: D3 v5/v7 modules, Vanilla JavaScript (ES6+), no TypeScript
+- **Build**: Vite (targeting d3-flame-graph structure)
+- **Testing**: Vitest with jsdom
+- **Style**: ESLint flat config (similar to d3-flame-graph)
 
 ## Key Decisions
 
@@ -51,7 +54,17 @@ This is an existing npm package (d3-heatmap2) that has been published to npm. Th
 |----------|-----------|---------|
 | D3 getter-setter pattern | Follows D3 conventions for configurability | ✓ Good |
 | No TypeScript | Simple library, ES6 sufficient | ✓ Good |
-| Tape for testing | Lightweight, compatible with StandardJS | — Pending (no tests yet) |
+| Vite for build | Modern, fast, used by d3-flame-graph | — Pending |
+| Vitest for testing | Modern, fast, jsdom support, used by d3-flame-graph | — Pending |
+
+## Context
+
+Modernizing to match d3-flame-graph structure:
+- Source in `src/lib/` 
+- Tests in `test/`
+- Examples in `src/examples/` and `src/index.html`
+- UMD and ESM builds via Vite
+- CSS injected via vite-plugin-lib-inject-css
 
 ---
-*Last updated: 2026-03-07 after project initialization*
+*Last updated: 2026-03-07 after modernization request*
