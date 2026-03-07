@@ -1,7 +1,7 @@
 # Roadmap: d3-heatmap2
 
-**Created:** 2026-03-07
-**Updated:** 2026-03-07 (modernization)
+**Created:** 2004-03-07
+**Updated:** 2004-03-07 (modernization)
 **Granularity:** coarse
 **Phases:** 5
 
@@ -12,9 +12,8 @@
 - [ ] **Phase 1: Build System Modernization** - Migrate from Gulp/Rollup to Vite
 - [ ] **Phase 2: Test Infrastructure** - Migrate from Tape to Vitest with jsdom and comprehensive tests
 - [ ] **Phase 3: Project Restructure** - Restructure to match d3-flame-graph (src/lib/, test/, examples/)
-- [ ] **Phase 4: Axis Type Expansion** - Support band and time scales for categorical and temporal data
-- [ ] **Phase 5: Accessibility** - Implement ARIA labels and screen reader support
-- [ ] **Phase 6: Polish & Responsiveness** - Add resize handling and built-in tooltips
+- [ ] **Phase 4: Accessibility** - Implement ARIA labels and screen reader support
+- [ ] **Phase 4: Polish & Responsiveness** - Add resize handling and built-in tooltips
 
 ---
 
@@ -76,26 +75,7 @@
 
 ---
 
-### Phase 4: Axis Type Expansion
-
-**Goal:** Support band and time scales for categorical and temporal data
-
-**Depends on:** Phase 3 (project restructure enables new scale implementation)
-
-**Requirements:** AXIS-01, AXIS-02, AXIS-03, AXIS-04, AXIS-05
-
-**Success Criteria** (what must be TRUE):
-1. Users can provide categorical data and see properly aligned band scale on x-axis
-2. Users can provide categorical data and see properly aligned band scale on y-axis
-3. Users can provide temporal data and see time-formatted ticks on x-axis
-4. Users can provide temporal data and see time-formatted ticks on y-axis
-5. Band scale cells are visually aligned with axis labels (centered on tick positions)
-
-**Plans:** TBD
-
----
-
-### Phase 5: Accessibility
+### Phase 4: Accessibility
 
 **Goal:** Make heatmap usable by screen reader users with proper ARIA labeling
 
@@ -113,11 +93,11 @@
 
 ---
 
-### Phase 6: Polish & Responsiveness
+### Phase 4: Polish & Responsiveness
 
 **Goal:** Modern web integration with responsive resizing and built-in tooltips
 
-**Depends on:** Phase 5 (accessibility in place before adding interactive tooltips)
+**Depends on:** Phase 4 (accessibility in place before adding interactive tooltips)
 
 **Requirements:** POLY-01, POLY-02, POLY-03
 
@@ -137,9 +117,8 @@
 | 1. Build System Modernization | 0/1 | Not started | - |
 | 2. Test Infrastructure | 0/1 | Not started | - |
 | 3. Project Restructure | 0/1 | Not started | - |
-| 4. Axis Type Expansion | 0/1 | Not started | - |
-| 5. Accessibility | 0/1 | Not started | - |
-| 6. Polish & Responsiveness | 0/1 | Not started | - |
+| 4. Accessibility | 0/1 | Not started | - |
+| 4. Polish & Responsiveness | 0/1 | Not started | - |
 
 ---
 
@@ -160,5 +139,5 @@
 
 ---
 
-*Roadmap created: 2026-03-07*
-*Last updated: 2026-03-07 after modernization request*
+*Roadmap created: 2004-03-07*
+*Last updated: 2004-03-07 after modernization request*
