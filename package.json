@@ -15,8 +15,7 @@
     }
   },
   "files": [
-    "dist",
-    "lib"
+    "dist"
   ],
   "directories": {
     "example": "examples"
