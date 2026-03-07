@@ -69,6 +69,10 @@ json('data.json').then(function (data) {
     hover([i, j])
   }
 
+  function onMouseOut(d, i, j) {
+    document.getElementById('details').innerHTML = ''
+  }
+
   chart = heatmap()
     .title('')
     .subtitle('')
@@ -80,6 +84,7 @@ json('data.json').then(function (data) {
     .highlightOpacity('0.4')
     .onClick(onClick)
     .onMouseOver(onMouseOver)
+    .onMouseOut(onMouseOut)
     .invertHighlightRows(invertHighlightRows)
     .gridStrokeOpacity(0.5)
     .colorScale(scaleLinear()
