@@ -55,7 +55,11 @@ Plans:
 4. Unit tests verify highlight calculation logic identifies correct cells to highlight
 5. Accessibility tests verify SVG elements have proper ARIA attributes using axe-core
 
-**Plans:** TBD
+**Plans:** 2/2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Set up Vitest with jsdom environment
+- [ ] 02-02-PLAN.md — Create unit tests for color scale, x/y scale, highlight logic, and accessibility
 
 ---
 
