@@ -10,7 +10,7 @@
 ## Phases
 
 - [x] **Phase 1: Build System Modernization** - Migrate from Gulp/Rollup to Vite ✓
-- [ ] **Phase 2: Test Infrastructure** - Migrate from Tape to Vitest with jsdom and comprehensive tests
+- [x] **Phase 2: Test Infrastructure** - Migrate from Tape to Vitest with jsdom and comprehensive tests ✓
 - [ ] **Phase 3: Project Restructure** - Restructure to match d3-flame-graph (src/lib/, test/, examples/)
 - [ ] **Phase 4: Upgrade all dependencies** - Update all dependencies to latest
 
@@ -55,11 +55,11 @@ Plans:
 4. Unit tests verify highlight calculation logic identifies correct cells to highlight
 5. Accessibility tests verify SVG elements have proper ARIA attributes using axe-core
 
-**Plans:** 2/2 plans
+**Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 02-01-PLAN.md — Set up Vitest with jsdom environment
-- [ ] 02-02-PLAN.md — Create unit tests for color scale, x/y scale, highlight logic, and accessibility
+- [x] 02-01-PLAN.md — Set up Vitest with jsdom environment
+- [x] 02-02-PLAN.md — Create unit tests for color scale, x/y scale, highlight logic, and accessibility
 
 ---
 
