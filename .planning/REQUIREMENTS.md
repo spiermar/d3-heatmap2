@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Build System
 
-- [ ] **BUILD-01**: Project uses Vite for builds (replaces Gulp + Rollup)
-- [ ] **BUILD-02**: Vite produces UMD and ESM builds with proper D3 externals
+- [x] **BUILD-01**: Project uses Vite for builds (replaces Gulp + Rollup)
+- [x] **BUILD-02**: Vite produces UMD and ESM builds with proper D3 externals
 
 ### Project Structure
 

@@ -1,17 +1,18 @@
 # Roadmap: d3-heatmap2
 
 **Created:** 2004-03-07
-**Updated:** 2004-03-07 (modernization)
+**Updated:** 2026-03-07 (modernization)
 **Granularity:** coarse
-**Phases:** 5
+**Phases:** 4
 
 ---
 
 ## Phases
 
-- [ ] **Phase 1: Build System Modernization** - Migrate from Gulp/Rollup to Vite
+- [x] **Phase 1: Build System Modernization** - Migrate from Gulp/Rollup to Vite ✓
 - [ ] **Phase 2: Test Infrastructure** - Migrate from Tape to Vitest with jsdom and comprehensive tests
 - [ ] **Phase 3: Project Restructure** - Restructure to match d3-flame-graph (src/lib/, test/, examples/)
+- [ ] **Phase 4: Upgrade all dependencies** - Update all dependencies to latest
 
 ---
 
@@ -32,10 +33,10 @@
 4. D3 modules are externalized in builds (not bundled)
 5. Build outputs match d3-flame-graph structure (d3-heatmap2.umd.js, d3-heatmap2.es.js, d3-heatmap2.css)
 
-**Plans:** 1 plan
+**Plans:** 1 plan (COMPLETE ✓)
 
 Plans:
-- [ ] 01-01-PLAN.md — Migrate build system from Gulp/Rollup to Vite
+- [x] 01-01-PLAN.md — Migrate build system from Gulp/Rollup to Vite
 
 ---
 
