@@ -24,7 +24,7 @@
   "scripts": {
     "build": "vite build --config vite.config.mjs && vite build --config vite.config.min.mjs",
     "dev": "vite",
-    "lint": "eslint src lib",
+    "lint": "eslint src",
     "test": "tape 'test/**/*-test.js'",
     "prepare": "npm run test"
   },
