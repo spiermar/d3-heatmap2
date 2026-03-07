@@ -32,7 +32,10 @@
 4. D3 modules are externalized in builds (not bundled)
 5. Build outputs match d3-flame-graph structure (d3-heatmap2.umd.js, d3-heatmap2.es.js, d3-heatmap2.css)
 
-**Plans:** TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 01-01-PLAN.md — Migrate build system from Gulp/Rollup to Vite
 
 ---
 
