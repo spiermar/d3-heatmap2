@@ -77,7 +77,10 @@ Plans:
 3. Demo/example in `src/index.html` and `src/examples/`
 4. Entry point configured in Vite to build from `src/lib/heatmap.js`
 
-**Plans:** TBD
+**Plans:** 1/1 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Verify project structure matches d3-flame-graph layout
 
 ### Phase 4: upgrade all dependencies
 
