@@ -160,7 +160,7 @@ export default function () {
         .style('fill-opacity', highlightOpacity)
         .style('pointer-events', 'none')
     } else {
-      console.log("Error: Can't update highlight. Heatmap was not initialized.")
+      console.log('Error: Can\'t update highlight. Heatmap was not initialized.')
     }
   }
 
@@ -270,7 +270,7 @@ export default function () {
         select(this).selectAll('rect')
           .data(d)
           .enter().append('rect')
-          .attr('x', function (d) { return (i * gridSize) + 3 }) // column
+          .attr('x', function (_d) { return (i * gridSize) + 3 }) // column
           .attr('y', function (d, j) { return j * gridSize }) // row
           .attr('class', 'bordered')
           .attr('width', gridSize)
