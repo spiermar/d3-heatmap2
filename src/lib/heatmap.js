@@ -3,6 +3,7 @@ import { format } from 'd3-format'
 import { scaleLinear } from 'd3-scale'
 import { range } from 'd3-array'
 import { axisLeft, axisTop, axisBottom } from 'd3-axis'
+import '../heatmap.css'
 
 function cantorPair (x, y) {
   var z = ((x + y) * (x + y + 1)) / 2 + y
