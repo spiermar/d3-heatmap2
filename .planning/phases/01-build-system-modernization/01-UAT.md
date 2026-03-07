@@ -1,9 +1,9 @@
 ---
-status: complete
+status: diagnosed
 phase: 01-build-system-modernization
 source: 01-01-SUMMARY.md
 started: 2026-03-07T21:00:00Z
-updated: 2026-03-07T21:05:00Z
+updated: 2026-03-07T21:06:00Z
 ---
 
 ## Current Test
@@ -49,5 +49,12 @@ skipped: 0
   reason: "User reported: dev server starts, but fails to render with the following error: Uncaught TypeError: heatmap(...).width(...).height is not a function at basic.js:19:4"
   severity: major
   test: 2
-  artifacts: []
-  missing: []
+  root_cause: "src/lib/heatmap.js missing height getter/setter method"
+  artifacts:
+    - path: "src/lib/heatmap.js"
+      issue: "heatmap.height function not defined"
+  missing:
+    - "Add height getter/setter method following same pattern as width"
+    - "Add height variable to closure"
+    - "Use height variable in heatmap draw function"
+  debug_session: ""
