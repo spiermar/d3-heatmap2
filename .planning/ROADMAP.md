@@ -84,12 +84,15 @@ Plans:
 
 ### Phase 4: upgrade all dependencies
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Upgrade all npm dependencies to latest versions, completing the modernization path from Phase 1 (Vite), Phase 2 (Vitest), Phase 3 (Restructure).
+
+**Requirements**: None - dependency-only phase
+
 **Depends on:** Phase 3
-**Plans:** 0 plans
+
+**Plans:** 1/1 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 4 to break down)
+- [ ] 04-01-PLAN.md — Upgrade D3 modules, ESLint, and remove deprecated packages
 
 ---
