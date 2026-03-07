@@ -14,8 +14,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Project Structure
 
-- [ ] **REST-01**: Source code in `src/lib/` directory
-- [ ] **REST-02**: Tests in `test/` directory, examples in `src/examples/`
+- [x] **REST-01**: Source code in `src/lib/` directory
+- [x] **REST-02**: Tests in `test/` directory, examples in `src/examples/`
 
 ### Testing
 
@@ -87,8 +87,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | BUILD-01 | Phase 1 | Complete |
 | BUILD-02 | Phase 1 | Complete |
-| REST-01 | Phase 3 | Pending |
-| REST-02 | Phase 3 | Pending |
+| REST-01 | Phase 3 | Complete |
+| REST-02 | Phase 3 | Complete |
 | TEST-01 | Phase 2 | Complete |
 | TEST-02 | Phase 2 | Pending |
 | TEST-03 | Phase 2 | Pending |
