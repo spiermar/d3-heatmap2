@@ -1,5 +1,5 @@
 .columnLabel, .rowLabel {
-    font-size: 1.0rem;
+    font-size: 0.8rem;
     fill: #AAAAAA;
     font-weight: 300;
 }
@@ -22,13 +22,13 @@
   }
 
 text {
-      font-size: 1.2rem;
+      font-size: 0.8rem;
       fill: #AAAAAA;
       font-weight: 400;
 }
 
 .legendTitle {
-      font-size: 1.3rem;
+      font-size: 1.0rem;
       fill: #4F4F4F;
       font-weight: 400;
 }
