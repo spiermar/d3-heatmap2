@@ -8,7 +8,7 @@ const fs = require('fs')
 const TIMEFACTOR = 1000000
 const ROWS = 50
 const MAXLAT = 2000
-const OUTFILE = './examples/data.json'
+const OUTFILE = './public/data.json'
 
 function summarizeBucket (data) {
   var buckets = new Array(data.length)

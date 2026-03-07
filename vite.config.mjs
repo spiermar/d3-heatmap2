@@ -23,6 +23,7 @@ export default defineConfig({
       external: [
         "d3-array",
         "d3-axis",
+        "d3-fetch",
         "d3-format",
         "d3-scale",
         "d3-selection",
@@ -39,6 +40,7 @@ export default defineConfig({
         globals: {
           "d3-array": "d3",
           "d3-axis": "d3",
+          "d3-fetch": "d3",
           "d3-format": "d3",
           "d3-scale": "d3",
           "d3-selection": "d3",
