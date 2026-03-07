@@ -1,17 +1,11 @@
 import { select } from 'd3-selection'
 import heatmap from '../lib/heatmap.js'
 
-// Sample data
+// Sample data - 2D array (columns × rows)
 const data = [
-  { row: 'Mon', col: '1am', value: 10 },
-  { row: 'Mon', col: '2am', value: 20 },
-  { row: 'Mon', col: '3am', value: 30 },
-  { row: 'Tue', col: '1am', value: 15 },
-  { row: 'Tue', col: '2am', value: 25 },
-  { row: 'Tue', col: '3am', value: 35 },
-  { row: 'Wed', col: '1am', value: 40 },
-  { row: 'Wed', col: '2am', value: 50 },
-  { row: 'Wed', col: '3am', value: 60 },
+  [10, 15, 40],
+  [20, 25, 50],
+  [30, 35, 60],
 ]
 
 const chart = heatmap()
