@@ -43,7 +43,7 @@
 
 **Goal:** Establish quality baseline with comprehensive test coverage
 
-**Depends on:** Nothing (first phase)
+**Depends on:** Phase 1 (build system must be in place first)
 
 **Requirements:** TEST-01, TEST-02, TEST-03, TEST-04
 
@@ -58,11 +58,29 @@
 
 ---
 
-### Phase 3: Axis Type Expansion
+### Phase 3: Project Restructure
+
+**Goal:** Restructure project to match d3-flame-graph layout
+
+**Depends on:** Phase 2 (tests must work before restructuring)
+
+**Requirements:** REST-01, REST-02
+
+**Success Criteria** (what must be TRUE):
+1. Source code moved to `src/lib/` directory
+2. Tests exist in `test/` directory with Vitest
+3. Demo/example in `src/index.html` and `src/examples/`
+4. Entry point configured in Vite to build from `src/lib/heatmap.js`
+
+**Plans:** TBD
+
+---
+
+### Phase 4: Axis Type Expansion
 
 **Goal:** Support band and time scales for categorical and temporal data
 
-**Depends on:** Phase 2 (test infrastructure enables verification of new scale behavior)
+**Depends on:** Phase 3 (project restructure enables new scale implementation)
 
 **Requirements:** AXIS-01, AXIS-02, AXIS-03, AXIS-04, AXIS-05
 
@@ -77,11 +95,11 @@
 
 ---
 
-### Phase 4: Accessibility
+### Phase 5: Accessibility
 
 **Goal:** Make heatmap usable by screen reader users with proper ARIA labeling
 
-**Depends on:** Phase 3 (axis implementation establishes component structure for accessibility)
+**Depends on:** Phase 4 (axis implementation establishes component structure for accessibility)
 
 **Requirements:** ACCL-01, ACCL-02, ACCL-03, ACCL-04
 
@@ -95,11 +113,11 @@
 
 ---
 
-### Phase 5: Polish & Responsiveness
+### Phase 6: Polish & Responsiveness
 
 **Goal:** Modern web integration with responsive resizing and built-in tooltips
 
-**Depends on:** Phase 4 (accessibility in place before adding interactive tooltips)
+**Depends on:** Phase 5 (accessibility in place before adding interactive tooltips)
 
 **Requirements:** POLY-01, POLY-02, POLY-03
 
