@@ -19,7 +19,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Testing
 
-- [ ] **TEST-01**: Test infrastructure uses Vitest with jsdom environment
+- [x] **TEST-01**: Test infrastructure uses Vitest with jsdom environment
 - [ ] **TEST-02**: Unit tests exist for scale calculations (color scale, x/y scales)
 - [ ] **TEST-03**: Unit tests exist for highlight calculation logic
 - [ ] **TEST-04**: Accessibility tests exist using axe-core/vitest-axe
@@ -89,7 +89,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BUILD-02 | Phase 1 | Complete |
 | REST-01 | Phase 3 | Pending |
 | REST-02 | Phase 3 | Pending |
-| TEST-01 | Phase 2 | Pending |
+| TEST-01 | Phase 2 | Complete |
 | TEST-02 | Phase 2 | Pending |
 | TEST-03 | Phase 2 | Pending |
 | TEST-04 | Phase 2 | Pending |
