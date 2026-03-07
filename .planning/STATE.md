@@ -21,7 +21,7 @@ See: .planning/PROJECT.md (updated 2026-03-07)
 
 ## Current Position
 
-Phase: 1 of 1 (Test Infrastructure)
+Phase: 1 of 2 (Test Infrastructure)
 Plan: 0 of 1 in current phase
 Status: Ready to plan
 Last activity: 2026-03-07 — Roadmap created
@@ -40,9 +40,9 @@ Progress: [░░░░░░░░░░] 0%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1: Test Infrastructure | 0 | 0 | - |
-| 2: Axis Type Expansion | 0 | 0 | - |
-| 3: Accessibility | 0 | 0 | - |
-| 4: Polish & Responsiveness | 0 | 0 | - |
+| 2: Project Restructure | 0 | 0 | - |
+| 3: Build System Modernization | 0 | 0 | - |
+| 4: upgrade all dependencies | 0 | 0 | - |
 
 **Recent Trend:**
 - Last 5 plans: N/A (no plans executed yet)
@@ -55,9 +55,13 @@ Progress: [░░░░░░░░░░] 0%
 ### Decisions
 
 - Phase 1: Test infrastructure uses Vitest with jsdom environment (replacing tape per research)
-- Phase 2: Band and time scales use existing d3-scale modules (no new dependencies)
-- Phase 3: Accessibility implemented as first-class concern, not wrapper
-- Phase 4: Built-in tooltip uses existing positioning logic from existing event handlers
+- Phase 2: Project Restructure to match d3-flame-graph layout (src/lib/, test/)
+- Phase 3: Build System Modernization from Gulp/Rollup to Vite
+- Phase 4: Upgrade all dependencies to latest versions
+
+### Roadmap Evolution
+
+- Phase 4 added: upgrade all dependencies
 
 ### Pending Todos
 

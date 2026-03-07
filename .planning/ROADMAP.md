@@ -71,4 +71,14 @@
 
 **Plans:** TBD
 
+### Phase 4: upgrade all dependencies
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 3
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 4 to break down)
+
 ---
