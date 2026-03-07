@@ -6,16 +6,27 @@
     "d3",
     "d3-module"
   ],
-  "main": "dist/d3-heatmap2.js",
+  "main": "./dist/d3-heatmap2.umd.js",
+  "module": "./dist/d3-heatmap2.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/d3-heatmap2.es.js",
+      "require": "./dist/d3-heatmap2.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "directories": {
     "example": "examples"
   },
   "homepage": "https://github.com/spiermar/d3-heatmap2",
   "scripts": {
-    "pretest": "gulp build",
+    "build": "vite build --config vite.config.mjs && vite build --config vite.config.min.mjs",
+    "dev": "vite",
+    "lint": "eslint src lib",
     "test": "tape 'test/**/*-test.js'",
-    "prepare": "npm run test",
-    "postpublish": "zip -j dist/d3-heatmap2.zip -- LICENSE README.md dist/d3-heatmap2.js dist/d3-heatmap2.min.js dist/d3-heatmap2.css"
+    "prepare": "npm run test"
   },
   "repository": {
     "type": "git",
@@ -24,23 +35,12 @@
   "author": "Martin Spier <spiermar@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "browser-sync": "^2.24.7",
-    "del": "^3.0.0",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "gulp": "^4.0.0",
-    "gulp-eslint": "^4.0.2",
-    "gulp-rename": "^1.4.0",
-    "gulp-uglify-es": "^1.0.4",
-    "rollup-plugin-commonjs": "8.3.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-stream": "^1.24.1",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
     "tape": "^4.9.1",
     "uglify-es": "^3.3.9",
-    "vinyl-source-stream": "^2.0.0"
+    "vite": "^7.3.1",
+    "vite-plugin-lib-inject-css": "^2.2.2"
   },
   "dependencies": {
     "d3-array": "^1.2.4",
