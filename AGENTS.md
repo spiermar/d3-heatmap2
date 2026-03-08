@@ -17,8 +17,8 @@ A D3.js-based heatmap visualization library. Renders heatmaps using D3 modules (
 Vanilla JavaScript (ES6+), No TypeScript
 
 ### Formatting
-- 2-space indentation
-- Single quotes for strings
+- 4-space indentation
+- Double quotes for strings
 - No semicolons (StandardJS style)
 - Trailing commas where appropriate
 - Variable declarations: use `var` for private variables in the closure pattern (see Library Pattern below)
