@@ -42,7 +42,7 @@ d3.select('#chart')
   <div id="chart"></div>
   <div id="details"></div>
   <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3-heatmap2/dist/d3-heatmap2.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-heatmap2@2.0.0/dist/d3-heatmap2.umd.min.js"></script>
   <script>
     var h = d3.heatmap()
       .width(960)
