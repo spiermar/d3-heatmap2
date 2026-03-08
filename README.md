@@ -6,7 +6,7 @@ A D3.js plugin that produces heatmaps.
 
 ## Example
 
-Click [here](http://bl.ocks.org/spiermar/raw/76dc64a7716205df91e51b485a2445e8/) to check the demo, and [source](https://gist.github.com/spiermar/76dc64a7716205df91e51b485a2445e8).
+Click [here](https://spiermar.github.io/d3-heatmap2/) to check the interactive demo, and [source](src/main.js).
 
 ## Installing
 
