@@ -15,8 +15,8 @@ export default [
       },
     },
     rules: {
-      indent: ["error", 2],
-      quotes: ["error", "single"],
+      indent: ["error", 4],
+      quotes: ["error", "double", { avoidEscape: true }],
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "no-useless-assignment": "off",
     },
