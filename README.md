@@ -20,7 +20,6 @@ npm install d3-heatmap2
 
 ```javascript
 import heatmap from 'd3-heatmap2'
-import 'd3-heatmap2/dist/d3-heatmap2.css'
 
 const h = heatmap()
   .width(960)
@@ -38,7 +37,6 @@ d3.select('#chart')
 
 ```html
 <head>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/d3-heatmap2/dist/d3-heatmap2.css">
 </head>
 <body>
   <div id="chart"></div>

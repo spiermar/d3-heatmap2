@@ -32,13 +32,14 @@ export default defineConfig({
         exports: "named",
         assetFileNames: (assetInfo) => {
           if (assetInfo.name && assetInfo.name.endsWith(".css")) {
-            return "d3-heatmap2.css"
+            return "d3-heatmap2.min.css"
           }
           return assetInfo.name
         },
         globals: {
           "d3-array": "d3",
           "d3-axis": "d3",
+          "d3-fetch": "d3",
           "d3-format": "d3",
           "d3-scale": "d3",
           "d3-selection": "d3",
